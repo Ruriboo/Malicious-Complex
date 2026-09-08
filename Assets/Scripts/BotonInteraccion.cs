@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class BotonPuerta : MonoBehaviour
 {
     [Header("Referencia a la Puerta")]
