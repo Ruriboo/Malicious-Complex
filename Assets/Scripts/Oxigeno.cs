@@ -3,8 +3,8 @@ using UnityEngine;
 public class Oxigeno : MonoBehaviour
 {
     //timer es un cronometro que cuenta el tiempo transcurrido.
-    [SerializeField] private float timer;
-   
+    private float timer;
+    [SerializeField] private float damageCooldown = 1 ; //tiempo en el que el timer se reinicia.(duracion de los tics de daño)
     [SerializeField] private int oxigenoMax;
 
     private int oxigenoActual;
@@ -24,7 +24,7 @@ public class Oxigeno : MonoBehaviour
     //la funcion reducirOxigeno reduce la cantidad de oxigeno actual una cantidad ingresada.
     public void reducirOxigeno(int cantidad)
     {
-        if(timer >= 1) //esto indica cada cuento tiempo se aplica el if, ej cada 1 segundo
+        if(timer >= damageCooldown) //esto indica cada cuento tiempo se aplica el if, ej cada 1 segundo
         {
             oxigenoActual = oxigenoActual - cantidad;
 
