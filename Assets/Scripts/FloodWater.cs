@@ -3,39 +3,37 @@ using UnityEngine.InputSystem;
 
 public class FloodWater : MonoBehaviour
 {
-    [SerializeField] private int waterDamage;
+    [SerializeField] private int waterDamage; //cantidad que reduce de oxigeno.
 
-    private Oxigeno oxigeno;
-
-
+    private Oxigeno oxigeno; //iniciamos una variable de tipo Oxigeno.
 
     [SerializeField] private float velocidad = 1f;
 
-    public bool flood = false;
+    [SerializeField]public bool flood = false; //para activar y desactivar el movimiento del agua.
+
 
     void Update()
     {
-        //Debug.Log("Moviéndose: " + moviendose);
         if (flood)
         {
-            transform.Translate(Vector3.up * velocidad * Time.deltaTime);
+            transform.Translate(Vector3.up * velocidad * Time.deltaTime); //si flood es true mueve el agua hacia arriba.
         }
     }
 
 
-    private void OnTriggerStay(Collider otro)
+    private void OnTriggerStay(Collider colliderOxigeno)
     {
-        Oxigeno oxigeno = otro.GetComponent<Oxigeno>();
+        oxigeno = colliderOxigeno.GetComponent<Oxigeno>(); // guardamos el componente que obtenemos de la colision.
 
         if (oxigeno != null)
         {
-            oxigeno.reducirOxigeno(waterDamage);
+            oxigeno.reducirOxigeno(waterDamage); //esto llama a la funcion que esta adentro de oxigeno
         }
     }
 
-    private void OnTriggerExit(Collider otro)
+    private void OnTriggerExit(Collider colliderOxigeno)
     {
-        Oxigeno oxigeno = otro.GetComponent<Oxigeno>();
+        oxigeno = colliderOxigeno.GetComponent<Oxigeno>();
 
         if (oxigeno != null)
         {
@@ -43,5 +41,4 @@ public class FloodWater : MonoBehaviour
             Debug.Log("Salió del agua → oxígeno rellenado");
         }
     }
-
 }
