@@ -75,6 +75,24 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        public float wallRunSpeed;
+        public bool wallJumping;
+        public MovementState state;
+
+        public enum MovementState
+        {
+            walljumping
+        }
+
+        private void StateHandler()
+        {
+            if (wallJumping)
+            {
+                state = MovementState.walljumping;
+                MoveSpeed = wallRunSpeed;
+            }
+        }
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -135,7 +153,7 @@ namespace StarterAssets
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
+
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
@@ -388,5 +406,8 @@ namespace StarterAssets
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
         }
+
+        public void SetVerticalVelocity(float value) => _verticalVelocity = value;
+        public float GetVerticalVelocity() => _verticalVelocity;
     }
 }
