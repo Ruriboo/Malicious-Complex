@@ -75,6 +75,8 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        [SerializeField] private float velocidadMouse = 1f;
+
         public float wallRunSpeed;
         public bool wallJumping;
         public MovementState state;
@@ -216,8 +218,8 @@ namespace StarterAssets
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
-                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+                _cinemachineTargetYaw += _input.look.x * velocidadMouse * deltaTimeMultiplier;
+                _cinemachineTargetPitch += _input.look.y * velocidadMouse * deltaTimeMultiplier;
             }
 
             // clamp our rotations so our values are limited 360 degrees
