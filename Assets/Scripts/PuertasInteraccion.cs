@@ -1,4 +1,6 @@
+using StarterAssets;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class PuertaPortal : MonoBehaviour
 {
@@ -11,8 +13,14 @@ public class PuertaPortal : MonoBehaviour
     public float distanciaApertura = 2.0f;
     public float velocidadApertura = 5.0f;
 
+    [Header("Interacción")]
+    [Tooltip("Si está activado, la puerta se abre al interactuar cerca del collider. Si no, solo funciona desde el botón (AbrirCerrarPuerta).")]
+    public bool abrirSinBoton = true;
+
     private bool jugadorCerca = false;
     private bool estaAbierta = false;
+    private StarterAssetsInputs inputJugador;
+
 
     // Posiciones locales iniciales (cerrada) y finales (abierta)
     private Vector3 posIzquierdaCerrada;
@@ -37,8 +45,9 @@ public class PuertaPortal : MonoBehaviour
 
     private void Update()
     {
-        if (jugadorCerca && Input.GetKeyDown(KeyCode.E))
+        if (abrirSinBoton && jugadorCerca && inputJugador != null && inputJugador.interact)
         {
+            inputJugador.interact = false;
             estaAbierta = !estaAbierta;
         }
 
@@ -58,5 +67,23 @@ public class PuertaPortal : MonoBehaviour
     public void AbrirCerrarPuerta()
     {
         estaAbierta = !estaAbierta;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            jugadorCerca = true;
+            inputJugador = other.GetComponentInParent<StarterAssetsInputs>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            jugadorCerca = false;
+            inputJugador = null;
+        }
     }
 }

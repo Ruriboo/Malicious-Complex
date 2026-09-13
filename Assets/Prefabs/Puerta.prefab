@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 527503174011933443}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.46, z: -1}
-  m_LocalScale: {x: 0.02, y: 2.14, z: 1.3}
+  m_LocalPosition: {x: 0, y: 1.01, z: -1}
+  m_LocalScale: {x: 0.18854813, y: 2.14, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3741161851132808109}
@@ -140,8 +140,8 @@ Transform:
   m_GameObject: {fileID: 1848909659297199746}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.000000009591035, y: 0.46, z: 0.28}
-  m_LocalScale: {x: 0.02, y: 2.14, z: 1.26}
+  m_LocalPosition: {x: 0.000000009591035, y: 1.01, z: 0.28}
+  m_LocalScale: {x: 0.18854813, y: 2.14, z: 1.26}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3741161851132808109}
@@ -250,7 +250,7 @@ Transform:
   m_GameObject: {fileID: 3343676586858223119}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -286,10 +286,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3741161851132808109}
-  - component: {fileID: 5768578173096796270}
   - component: {fileID: 7760883656874693289}
+  - component: {fileID: -2525015851048676867}
   m_Layer: 0
-  m_Name: Puerta prueba
+  m_Name: Puerta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -313,22 +313,6 @@ Transform:
   - {fileID: 5059010382487219183}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0.04, z: 0}
---- !u!114 &5768578173096796270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3816412981982080218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01d5b68d58573f046b4387de80441cb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PuertaPortal
-  hojaIzquierda: {fileID: 4806985894350661910}
-  hojaDerecha: {fileID: 7768840342853121629}
-  distanciaApertura: 2
-  velocidadApertura: 5
 --- !u!65 &7760883656874693289
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -350,3 +334,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-2525015851048676867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3816412981982080218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d5b68d58573f046b4387de80441cb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuertaPortal
+  hojaIzquierda: {fileID: 4806985894350661910}
+  hojaDerecha: {fileID: 7768840342853121629}
+  distanciaApertura: 2
+  velocidadApertura: 5
+  abrirSinBoton: 0
