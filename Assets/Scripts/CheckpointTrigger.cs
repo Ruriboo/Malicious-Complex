@@ -15,7 +15,7 @@ public class CheckpointTrigger : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            CheckpointManager manager = FindObjectOfType<CheckpointManager>();
+            CheckpointManager manager = FindFirstObjectByType<CheckpointManager>();
 
             if (manager != null)
             {

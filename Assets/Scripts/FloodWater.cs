@@ -9,7 +9,7 @@ public class FloodWater : MonoBehaviour
 
     [SerializeField] private float velocidad = 1f;
 
-    [SerializeField]public bool flood = false; //para activar y desactivar el movimiento del agua.
+    [SerializeField]public bool flood = true; //para activar y desactivar el movimiento del agua.
 
 
     void Update()
@@ -28,6 +28,7 @@ public class FloodWater : MonoBehaviour
         if (oxigeno != null)
         {
             oxigeno.reducirOxigeno(waterDamage); //esto llama a la funcion que esta adentro de oxigeno
+            Debug.Log("DAMAGE");
         }
     }
 
