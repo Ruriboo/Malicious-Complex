@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Oxigeno : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class Oxigeno : MonoBehaviour
     private float timer;
     [SerializeField] private float damageCooldown = 1 ; //tiempo en el que el timer se reinicia.(duracion de los tics de daño)
     [SerializeField] private int oxigenoMax;
+    [SerializeField] private LoseWinCondition loseWinCondition; //Referencia al script LoseWinCondition para cargar la escena de derrota
 
     private int oxigenoActual;
 
@@ -33,6 +35,7 @@ public class Oxigeno : MonoBehaviour
         if(oxigenoActual<=0)
         {
             Debug.Log("Moriste");
+            loseWinCondition.CargarLoseScene();
         }
     }
 
