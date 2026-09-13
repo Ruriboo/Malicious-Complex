@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MaliciousComplex.unity
     guid: 457ad2cf7c715344cb71b3052353ac91
+  - enabled: 1
+    path: Assets/Scenes/winScene.unity
+    guid: ffba8f1eb7e267b409b1471369f76c45
+  - enabled: 1
+    path: Assets/Scenes/loseScene.unity
+    guid: 493e0409203e5624fbfd70a0d3217e9e
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
