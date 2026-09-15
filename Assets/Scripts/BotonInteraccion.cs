@@ -1,57 +1,69 @@
-
-using StarterAssets;
 using UnityEngine;
-public class BotonPuerta : MonoBehaviour
-{
-    [Header("Referencia a la Puerta")]
-    public PuertaPortal puertaObjetivo;
 
-    private bool jugadorCerca = false;
+public class BotonPuerta : ObjetoInteractuable
+{
+    [Header("Referencia al Objetivo")]
+    [SerializeField] private MonoBehaviour objetoObjetivo;
+    private IInteractuable objetivoInteractuable;
+
     private bool estaActivado = false;
     private MeshRenderer rendererBoton;
-    private StarterAssetsInputs inputJugador;
+
+    private void Awake()
+    {
+        rendererBoton = GetComponent<MeshRenderer>();
+        
+        if (objetoObjetivo != null)
+        {
+            objetivoInteractuable = objetoObjetivo as IInteractuable;
+        }
+    }
 
     private void Start()
     {
-        rendererBoton = GetComponent<MeshRenderer>();
         AplicarColor();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if (jugadorCerca && inputJugador != null && inputJugador.interact)
-        {
-            inputJugador.interact = false;
-            if (puertaObjetivo != null)
-            {
-                puertaObjetivo.AbrirCerrarPuerta();
-                estaActivado = !estaActivado;
-                AplicarColor();
-            }
-        }
+        base.Update();
     }
+
+    public override void Interactuar()
+    {
+        if (objetivoInteractuable == null && objetoObjetivo != null)
+        {
+            objetivoInteractuable = objetoObjetivo as IInteractuable;
+        }
+
+        if (objetivoInteractuable != null)
+        {
+            objetivoInteractuable.Interactuar();
+            
+            estaActivado = !estaActivado;
+            AplicarColor();
+        }
+    }   
 
     private void AplicarColor()
     {
-        if (rendererBoton == null) return;
-        rendererBoton.material.color = estaActivado ? Color.green : Color.red;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        if (rendererBoton != null)
         {
-            jugadorCerca = true;
-            inputJugador = other.GetComponentInParent<StarterAssetsInputs>();
+            rendererBoton.material.color = estaActivado ? Color.green : Color.red;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public bool ObtenerEstado() => estaActivado;
+
+    public void EstablecerEstado(bool nuevoEstado)
     {
-        if (other.CompareTag("Player"))
+        estaActivado = nuevoEstado;
+        AplicarColor();
+
+        if (objetoObjetivo is PuertaPortal puerta)
         {
-            jugadorCerca = false;
-            inputJugador = null;
+            if (estaActivado) puerta.AbrirPuertacheck();
+            else puerta.CerrarPuertacheck();
         }
     }
 }
