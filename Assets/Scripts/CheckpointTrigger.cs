@@ -3,7 +3,6 @@ using UnityEngine;
 public class CheckpointTrigger : MonoBehaviour
 {
     public Transform spawnPointTransform;
-
     public float customWaterHeight = 0f;
     public bool useCurrentWaterHeight = true;
 
@@ -15,17 +14,15 @@ public class CheckpointTrigger : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            CheckpointManager manager = FindFirstObjectByType<CheckpointManager>();
-
-            if (manager != null)
+            if (CheckpointManager.Instance != null)
             {
                 Vector3 spawnPos = spawnPointTransform != null ? spawnPointTransform.position : transform.position;
                 
-                float waterHeightToSave = useCurrentWaterHeight && manager.water != null 
-                    ? manager.water.position.y 
+                float waterHeightToSave = useCurrentWaterHeight && CheckpointManager.Instance.water != null 
+                    ? CheckpointManager.Instance.water.position.y 
                     : customWaterHeight;
 
-                manager.SetCheckpoint(spawnPos, waterHeightToSave);
+                CheckpointManager.Instance.SetCheckpoint(spawnPos, waterHeightToSave);
                 isActivated = true;
             }
         }

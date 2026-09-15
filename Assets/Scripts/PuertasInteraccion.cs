@@ -1,32 +1,21 @@
-using StarterAssets;
 using UnityEngine;
-using UnityEngine.Windows;
 
-public class PuertaPortal : MonoBehaviour
+public class PuertaPortal : ObjetoInteractuable
 {
     [Header("Referencias de las Hojas")]
-    public Transform hojaIzquierda;
-    public Transform hojaDerecha;
+    [SerializeField] private Transform hojaIzquierda;
+    [SerializeField] private Transform hojaDerecha;
 
     [Header("Configuración de Desplazamiento")]
-    [Tooltip("Distancia que se desplaza cada hoja hacia su lado")]
-    public float distanciaApertura = 2.0f;
-    public float velocidadApertura = 5.0f;
+    [SerializeField] private float distanciaApertura = 2.0f;
+    [SerializeField] private float velocidadApertura = 5.0f;
 
-    [Header("Interacción")]
-    [Tooltip("Si está activado, la puerta se abre al interactuar cerca del collider. Si no, solo funciona desde el botón (AbrirCerrarPuerta).")]
-    public bool abrirSinBoton = true;
+    [Header("Interacción Directa")]
+    [SerializeField] private bool abrirSinBoton = true;
 
-    private bool jugadorCerca = false;
     private bool estaAbierta = false;
-    private StarterAssetsInputs inputJugador;
-
-
-    // Posiciones locales iniciales (cerrada) y finales (abierta)
-    private Vector3 posIzquierdaCerrada;
-    private Vector3 posIzquierdaAbierta;
-    private Vector3 posDerechaCerrada;
-    private Vector3 posDerechaAbierta;
+    private Vector3 posIzquierdaCerrada, posIzquierdaAbierta;
+    private Vector3 posDerechaCerrada, posDerechaAbierta;
 
     private void Start()
     {
@@ -43,47 +32,24 @@ public class PuertaPortal : MonoBehaviour
         }
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if (abrirSinBoton && jugadorCerca && inputJugador != null && inputJugador.interact)
+        if (abrirSinBoton)
         {
-            inputJugador.interact = false;
-            estaAbierta = !estaAbierta;
+            base.Update();
         }
 
         Vector3 targetIzquierda = estaAbierta ? posIzquierdaAbierta : posIzquierdaCerrada;
         Vector3 targetDerecha = estaAbierta ? posDerechaAbierta : posDerechaCerrada;
 
         if (hojaIzquierda != null)
-        {
             hojaIzquierda.localPosition = Vector3.Lerp(hojaIzquierda.localPosition, targetIzquierda, Time.deltaTime * velocidadApertura);
-        }
 
         if (hojaDerecha != null)
-        {
             hojaDerecha.localPosition = Vector3.Lerp(hojaDerecha.localPosition, targetDerecha, Time.deltaTime * velocidadApertura);
-        }
-    }
-    public void AbrirCerrarPuerta()
-    {
-        estaAbierta = !estaAbierta;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            jugadorCerca = true;
-            inputJugador = other.GetComponentInParent<StarterAssetsInputs>();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            jugadorCerca = false;
-            inputJugador = null;
-        }
-    }
+    public override void Interactuar() => estaAbierta = !estaAbierta;
+    public void AbrirPuertacheck() => estaAbierta = true;
+    public void CerrarPuertacheck() => estaAbierta = false;
 }
