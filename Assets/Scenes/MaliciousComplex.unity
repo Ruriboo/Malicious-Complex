@@ -665,6 +665,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2130309097}
+    - target: {fileID: 38860549129966261, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 73365108321304788, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1105,6 +1109,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1331326612}
+    - target: {fileID: 1812914730643598371, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1843281502486765781, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1521,6 +1529,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 447638126}
+    - target: {fileID: 3781271891332770026, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3810257776222714450, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -6930,6 +6942,17 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!114 &483549571 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8625516111867473453, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
+  m_PrefabInstance: {fileID: 78739925}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3980c570d5228a948b455dee0630433f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BotonPuerta
 --- !u!1 &485258920
 GameObject:
   m_ObjectHideFlags: 0
@@ -18313,7 +18336,7 @@ MonoBehaviour:
     alturaInicial: -15.66
   - nombreZona: Zona3
     agua: {fileID: 837838563}
-    puntoEntrada: {fileID: 0}
+    puntoEntrada: {fileID: 1018540509}
     alturaInicial: -15.66
   currentSpawnPoint: {x: 0, y: 0, z: 0}
   muertes: 0
@@ -27692,7 +27715,7 @@ PrefabInstance:
     - target: {fileID: 1469905923456627094, guid: 2a4db64d0af1b6045a103665f6262ee5, type: 3}
       propertyPath: objetoInteractuable
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 483549571}
     - target: {fileID: 3143361591087034471, guid: 2a4db64d0af1b6045a103665f6262ee5, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.9000003
