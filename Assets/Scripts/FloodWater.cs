@@ -20,6 +20,14 @@ public class FloodWater : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("WaterStop"))
+        {
+            flood = false;
+        }
+    }
+
 
     private void OnTriggerStay(Collider colliderOxigeno)
     {
