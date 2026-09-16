@@ -60,14 +60,14 @@ public class LoseWinCondition : MonoBehaviour
     {
         if (campoTexto != null && checkpointManager != null)
         {
-            float tiempoTotal = checkpointManager.tiempoTranscurrido;
+            float tiempoTotal = checkpointManager.TiempoTranscurrido;  // ← CAMBIO 1
             int minutos = Mathf.FloorToInt(tiempoTotal / 60F);
             int segundos = Mathf.FloorToInt(tiempoTotal % 60F);
             string tiempoFormateado = string.Format("{0:00}:{1:00}", minutos, segundos);
 
             campoTexto.text = $"Tiempo empleado: {tiempoFormateado}\n" +
-                              $"Checkpoints alcanzados: {checkpointManager.checkpointsAlcanzados}\n" +
-                              $"Muertes totales: {checkpointManager.muertes}";
+                            $"Checkpoints alcanzados: {checkpointManager.CheckpointsAlcanzados}\n" +  // ← CAMBIO 2
+                            $"Muertes totales: {checkpointManager.Muertes}";  // ← CAMBIO 3
         }
     }
 
