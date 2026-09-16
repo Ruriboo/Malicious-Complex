@@ -6,23 +6,38 @@ public class CheckpointManager : MonoBehaviour
     public static CheckpointManager Instance { get; private set; }
 
     [Header("Referencias Principales")]
-    public Transform player;            
-    public Transform water;             
+    [SerializeField] private Transform player;
+    [SerializeField] private Oxigeno oxigeno;
 
-    [Header("Configuración de Respawn y Agua")]
-    public Vector3 currentSpawnPoint;    
-    public float targetWaterHeight;       
-    public float waterLowerSpeed = 5f;
+    [Header("Zonas del Nivel (en orden de progresión)")]
+    [Tooltip("Agregar en orden: Zona 1, Zona 2, Zona 3, Zona 4...")]
+    [SerializeField] private List<ZonaInundacion> zonasDelNivel = new();
+
+    [Header("Configuración de Respawn")]
+    [SerializeField] private Vector3 currentSpawnPoint;
 
     [Header("Estadísticas")]
-    public int muertes = 0;
-    public int checkpointsAlcanzados = 0;
-    public float tiempoTranscurrido = 0f;
+    [SerializeField] private int muertes = 0;
+    [SerializeField] private int checkpointsAlcanzados = 0;
+    [SerializeField] private float tiempoTranscurrido = 0f;
 
+    public int Muertes => muertes;
+    public int CheckpointsAlcanzados => checkpointsAlcanzados;
+    public float TiempoTranscurrido => tiempoTranscurrido;
+    public string NombreZonaActual => zonaActual.nombreZona;
+
+    public Transform Water => zonaActual.agua != null ? zonaActual.agua.transform : null;
+
+
+    private Dictionary<BotonPuerta, bool> estadosBotonesGuardados = new();
+
+    private Queue<ZonaInundacion> zonasPendientes = new();
+
+    private Stack<ZonaInundacion> zonasJugadas = new();
+
+    private ZonaInundacion zonaActual;
     private bool juegoTerminado = false;
-
     private BotonPuerta[] todosLosBotones;
-    private Dictionary<BotonPuerta, bool> estadosBotonesGuardados = new Dictionary<BotonPuerta, bool>();
 
     private void Awake()
     {
@@ -39,94 +54,142 @@ public class CheckpointManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        if (player != null)
-        {
-            currentSpawnPoint = player.position;
-        }
-
-        if (water != null)
-        {
-            targetWaterHeight = water.position.y;
-        }
-
-        todosLosBotones = FindObjectsByType<BotonPuerta>(FindObjectsSortMode.None);
-        GuardarEstadoActualBotones();
+        RefrescarBotones();
+        InicializarZonas();
     }
 
     private void Update()
     {
-        if (!juegoTerminado)
-        {
-            tiempoTranscurrido += Time.deltaTime;
-        }
+        if (!juegoTerminado) tiempoTranscurrido += Time.deltaTime;
     }
+
+    // ZONAS
+
+    /// <summary>
+    /// Carga las zonas del nivel en la Queue, en el orden del Inspector.
+    /// </summary>
+    private void InicializarZonas()
+    {
+        zonasPendientes.Clear();
+        zonasJugadas.Clear();
+
+        foreach (var zona in zonasDelNivel)
+        {
+            if (zona.EsValida())
+                zonasPendientes.Enqueue(zona);
+            else
+                Debug.LogWarning($"[CheckpointManager] Zona inválida: {zona.nombreZona}");
+        }
+
+        if (zonasPendientes.Count > 0)
+            ActivarSiguienteZona();
+    }
+
+    public void ActivarSiguienteZona()
+    {
+        if (zonasPendientes.Count == 0)
+        {
+            Debug.Log("[CheckpointManager] ¡No quedan más zonas!");
+            return;
+        }
+
+        // Detener el agua de la zona anterior si existía
+        if (zonaActual.agua != null)
+            zonaActual.agua.Flood = false;
+
+        // Desencolar la siguiente zona y apilarla en el historial
+        zonaActual = zonasPendientes.Dequeue();
+        zonasJugadas.Push(zonaActual);
+
+        // Asegurar que solo la zona actual tiene el agua activa
+        DetenerTodasLasAguas();
+        if (zonaActual.agua != null)
+        {
+            zonaActual.agua.Flood = true;
+            Debug.Log($"[CheckpointManager] Zona activada: {zonaActual.nombreZona}");
+        }
+
+        GuardarEstadoActualBotones();
+    }
+
+    private void DetenerTodasLasAguas()
+    {
+        foreach (var zona in zonasDelNivel)
+            if (zona.agua != null)
+                zona.agua.Flood = false;
+    }
+
+    // CHECKPOINTS
 
     public void SetCheckpoint(Vector3 newSpawnPosition, float waterLevelForThisCheckpoint)
     {
         currentSpawnPoint = newSpawnPosition;
-        targetWaterHeight = waterLevelForThisCheckpoint;
-
         checkpointsAlcanzados++;
-
+        RefrescarBotones();
         GuardarEstadoActualBotones();
+    }
+
+    private void RefrescarBotones()
+    {
+        todosLosBotones = FindObjectsByType<BotonPuerta>(FindObjectsSortMode.None);
     }
 
     private void GuardarEstadoActualBotones()
     {
         estadosBotonesGuardados.Clear();
-
         foreach (BotonPuerta boton in todosLosBotones)
-        {
             if (boton != null)
-            {
                 estadosBotonesGuardados[boton] = boton.ObtenerEstado();
-            }
-        }
     }
+
+    // RESPAWN
 
     public void RespawnPlayer()
     {
         if (player == null)
         {
-            Debug.LogWarning("No se asignó la referencia del Jugador en el CheckpointManager.");
+            Debug.LogWarning("[CheckpointManager] No se asignó el Jugador.");
             return;
         }
 
         muertes++;
+        juegoTerminado = false;
 
-        CharacterController cc = player.GetComponent<CharacterController>();
-        if (cc != null) cc.enabled = false;
-
-        player.position = currentSpawnPoint;
-
-        if (cc != null) cc.enabled = true;
-
-        if (water != null)
+        // Usar la última zona del Stack 
+        if (zonasJugadas.Count > 0)
         {
-            Vector3 newWaterPos = water.position;
-            newWaterPos.y = targetWaterHeight;
-            water.position = newWaterPos;
+            ZonaInundacion zonaRespawn = zonasJugadas.Peek();
+
+            // Mover jugador al punto de entrada de la zona
+            if (zonaRespawn.puntoEntrada != null)
+            {
+                CharacterController cc = player.GetComponent<CharacterController>();
+                if (cc != null) cc.enabled = false;
+                player.position = zonaRespawn.puntoEntrada.position;
+                if (cc != null) cc.enabled = true;
+            }
+
+            // Resetear el agua de la zona a su altura inicial
+            if (zonaRespawn.agua != null)
+            {
+                Vector3 pos = zonaRespawn.agua.transform.position;
+                pos.y = zonaRespawn.alturaInicial;
+                zonaRespawn.agua.transform.position = pos;
+                zonaRespawn.agua.Flood = true;
+            }
         }
+
+        if (oxigeno != null) oxigeno.rellenarOxigeno();
 
         RestaurarEstadoBotones();
     }
 
     private void RestaurarEstadoBotones()
     {
-        foreach (KeyValuePair<BotonPuerta, bool> entrada in estadosBotonesGuardados)
-        {
-            BotonPuerta boton = entrada.Key;
-            bool estadoGuardado = entrada.Value;
-
-            if (boton != null)
-            {
-                boton.EstablecerEstado(estadoGuardado);
-            }
-        }
+        foreach (var entrada in estadosBotonesGuardados)
+            if (entrada.Key != null)
+                entrada.Key.EstablecerEstado(entrada.Value);
     }
 
-    public void FinalizarJuego()
-    {
-        juegoTerminado = true;
-    }
+    public void FinalizarJuego() => juegoTerminado = true;
 }

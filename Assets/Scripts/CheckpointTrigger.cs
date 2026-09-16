@@ -18,8 +18,8 @@ public class CheckpointTrigger : MonoBehaviour
             {
                 Vector3 spawnPos = spawnPointTransform != null ? spawnPointTransform.position : transform.position;
                 
-                float waterHeightToSave = useCurrentWaterHeight && CheckpointManager.Instance.water != null 
-                    ? CheckpointManager.Instance.water.position.y 
+                float waterHeightToSave = useCurrentWaterHeight && CheckpointManager.Instance.Water != null   
+                    ? CheckpointManager.Instance.Water.position.y                                             
                     : customWaterHeight;
 
                 CheckpointManager.Instance.SetCheckpoint(spawnPos, waterHeightToSave);

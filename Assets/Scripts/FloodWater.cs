@@ -8,9 +8,9 @@ public class FloodWater : MonoBehaviour
     private Oxigeno oxigeno; //iniciamos una variable de tipo Oxigeno.
 
     [SerializeField] private float velocidad = 1f;
+    [SerializeField] private bool flood = true;//para activar y desactivar el movimiento del agua.
 
-    [SerializeField]public bool flood = true; //para activar y desactivar el movimiento del agua.
-
+    public bool Flood { get => flood; set => flood = value; }
 
     void Update()
     {
