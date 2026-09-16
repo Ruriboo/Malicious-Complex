@@ -1,5 +1,4 @@
 using StarterAssets;
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,11 +9,10 @@ public class WallJump : MonoBehaviour
     [SerializeField] private float wallJumpForce = 5f;
     [SerializeField] private float wallCheckDistance = 1f;
     [SerializeField] private float minJumpHeight = 1f;
+    [SerializeField] private float footCheckRadius = 0.35f;
 
-    private RaycastHit leftWallHit;
-    private RaycastHit rightWallHit;
-    private bool wallLeft;
-    private bool wallRight;
+    private RaycastHit wallHit;
+    private bool hasWall;
 
     private ThirdPersonController controller;
     private CharacterController characterController;
@@ -34,7 +32,11 @@ public class WallJump : MonoBehaviour
         if (Keyboard.current.spaceKey.wasPressedThisFrame) bufferCounter = 0.25f;
         else bufferCounter -= Time.deltaTime;
 
-        if (!canWallJump) { wallJumpTimer += Time.deltaTime; if (wallJumpTimer > 0.5f) canWallJump = true; }
+        if (!canWallJump)
+        {
+            wallJumpTimer += Time.deltaTime;
+            if (wallJumpTimer > 0.5f) canWallJump = true;
+        }
 
         CheckForWall();
         StateMachine();
@@ -42,43 +44,61 @@ public class WallJump : MonoBehaviour
 
     void CheckForWall()
     {
-        if (!canWallJump) { wallLeft = wallRight = false; return; }
+        if (!canWallJump)
+        {
+            hasWall = false;
+            return;
+        }
+
         var origin = transform.position + Vector3.up;
-        wallRight = Physics.Raycast(origin, transform.right, out rightWallHit, wallCheckDistance, wallLayer);
-        wallLeft = Physics.Raycast(origin, -transform.right, out leftWallHit, wallCheckDistance, wallLayer);
+        hasWall = Physics.Raycast(origin, transform.right, out wallHit, wallCheckDistance, wallLayer)
+               || Physics.Raycast(origin, -transform.right, out wallHit, wallCheckDistance, wallLayer);
     }
 
-    bool AboveGround() => !Physics.Raycast(transform.position, Vector3.down, minJumpHeight, groundLayer);
+    bool IsOnTopOfWall()
+    {
+        Vector3 feet = transform.position + characterController.center;
+        feet.y -= characterController.height / 2f - 0.15f;
+        return Physics.CheckSphere(feet, footCheckRadius, wallLayer);
+    }
+
+    bool IsGrounded()
+    {
+        if (IsOnTopOfWall()) return true;
+        if (Physics.Raycast(transform.position, Vector3.down, minJumpHeight, groundLayer)) return true;
+        return false;
+    }
 
     void StateMachine()
     {
-        bool onWall = (wallLeft || wallRight) && AboveGround() && !controller.Grounded && canWallJump;
+        if (IsGrounded())
+        {
+            if (controller.wallJumping) StopWallJump();
+            return;
+        }
 
-        if (onWall && !controller.wallJumping) StartWallJump();
+        bool onWall = hasWall &&!controller.Grounded && canWallJump;
+
+        if (onWall &&!controller.wallJumping) StartWallJump();
         if (!onWall && controller.wallJumping) StopWallJump();
 
         if (controller.wallJumping)
         {
-            var normal = wallRight ? rightWallHit.normal : leftWallHit.normal;
             controller.SetVerticalVelocity(-1.2f);
-            characterController.Move(-normal * Time.deltaTime * 1.5f);
+            characterController.Move(-wallHit.normal * Time.deltaTime * 1.5f);
 
             if (bufferCounter > 0)
             {
                 controller.SetVerticalVelocity(8f);
-                characterController.Move(normal * wallJumpForce * Time.deltaTime * 2f);
-                bufferCounter = 0; canWallJump = false; wallJumpTimer = 0;
+                characterController.Move(wallHit.normal * wallJumpForce * Time.deltaTime * 2f);
+                bufferCounter = 0;
+                canWallJump = false;
+                wallJumpTimer = 0;
                 StopWallJump();
             }
         }
     }
 
-    void StartWallJump()
-    {
-        controller.wallJumping = true;
-    }
-    void StopWallJump()
-    {
-        controller.wallJumping = false;
-    }
+    void StartWallJump() => controller.wallJumping = true;
+    void StopWallJump() => controller.wallJumping = false;
 }
