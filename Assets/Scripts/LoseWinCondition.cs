@@ -6,6 +6,7 @@ public class LoseWinCondition : MonoBehaviour
 {
     [Header("Referencias de Scripts")]
     [SerializeField] private CheckpointManager checkpointManager;
+    [SerializeField] private MonoBehaviour cameraController; 
 
     [Header("Paneles de UI")]
     [SerializeField] private GameObject WinPanel;
@@ -60,14 +61,14 @@ public class LoseWinCondition : MonoBehaviour
     {
         if (campoTexto != null && checkpointManager != null)
         {
-            float tiempoTotal = checkpointManager.TiempoTranscurrido;  // ← CAMBIO 1
+            float tiempoTotal = checkpointManager.TiempoTranscurrido;
             int minutos = Mathf.FloorToInt(tiempoTotal / 60F);
             int segundos = Mathf.FloorToInt(tiempoTotal % 60F);
             string tiempoFormateado = string.Format("{0:00}:{1:00}", minutos, segundos);
 
             campoTexto.text = $"Tiempo empleado: {tiempoFormateado}\n" +
-                            $"Checkpoints alcanzados: {checkpointManager.CheckpointsAlcanzados}\n" +  // ← CAMBIO 2
-                            $"Muertes totales: {checkpointManager.Muertes}";  // ← CAMBIO 3
+                            $"Checkpoints alcanzados: {checkpointManager.CheckpointsAlcanzados}\n" +
+                            $"Muertes totales: {checkpointManager.Muertes}"; 
         }
     }
 
@@ -81,6 +82,11 @@ public class LoseWinCondition : MonoBehaviour
         Time.timeScale = 0f; 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        
+        if (cameraController != null)
+        {
+            cameraController.enabled = false;
+        }
     }
 
     /// <summary>
