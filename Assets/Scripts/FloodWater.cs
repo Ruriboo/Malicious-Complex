@@ -35,6 +35,7 @@ public class FloodWater : MonoBehaviour
 
         if (oxigeno != null)
         {
+            oxigeno.EntrarAgua();
             oxigeno.reducirOxigeno(waterDamage); //esto llama a la funcion que esta adentro de oxigeno
             Debug.Log("DAMAGE");
         }
@@ -46,7 +47,7 @@ public class FloodWater : MonoBehaviour
 
         if (oxigeno != null)
         {
-            oxigeno.rellenarOxigeno();
+            oxigeno.SalirAgua();
             Debug.Log("Salió del agua → oxígeno rellenado");
         }
     }

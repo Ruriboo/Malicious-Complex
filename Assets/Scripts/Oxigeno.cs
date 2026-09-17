@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Oxigeno : MonoBehaviour
 {
@@ -8,9 +9,12 @@ public class Oxigeno : MonoBehaviour
     [SerializeField] private float damageCooldown = 1; //tiempo en el que el timer se reinicia.(duracion de los tics de daño)
     [SerializeField] private int oxigenoMax;
     [SerializeField] private LoseWinCondition loseWinCondition; //Referencia al script LoseWinCondition para cargar la escena de derrota
+    [SerializeField] private Image barraOxigeno;
+    [SerializeField] private GameObject uiOxigeno;
 
     private int oxigenoActual;
     private bool Isdead = false;
+    private bool enAgua = false;
 
     public int OxigenoActual => oxigenoActual;
     public int OxigenoMax => oxigenoMax;
@@ -19,11 +23,22 @@ public class Oxigeno : MonoBehaviour
     void Start()
     {
         oxigenoActual = oxigenoMax;
+        uiOxigeno.SetActive(false);
     }
 
     void Update()
     {
         timer = timer + Time.deltaTime;
+        if (enAgua)
+        {
+            uiOxigeno.SetActive(true);
+            barraOxigeno.fillAmount = PorcentajeOxigeno;
+        }
+        else
+        {
+            uiOxigeno.SetActive(false);
+        }
+
     }
 
     //la funcion reducirOxigeno reduce la cantidad de oxigeno actual una cantidad ingresada.
@@ -53,5 +68,20 @@ public class Oxigeno : MonoBehaviour
     {
         oxigenoActual = oxigenoMax;
         Isdead = false;
+    }
+
+    public void EntrarAgua()
+    {
+        if (enAgua) return;
+        enAgua = true;
+        uiOxigeno.SetActive(true);
+    }
+
+    public void SalirAgua()
+    {
+        if (!enAgua) return;
+        enAgua = false;
+        uiOxigeno.SetActive(false);
+        rellenarOxigeno();
     }
 }
