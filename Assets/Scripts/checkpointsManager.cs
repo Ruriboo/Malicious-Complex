@@ -1,9 +1,18 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
     public static CheckpointManager Instance { get; private set; }
+
+    public static event Action<int> OnMuertesCambiadas;
+
+    public static event Action<int> OnCheckpointAlcanzado;
+
+    public static event Action<float> OnTiempoActualizado;
+
+    public static event Action<string> OnZonaCambiada;
 
     [Header("Referencias Principales")]
     [SerializeField] private Transform player;
@@ -27,14 +36,12 @@ public class CheckpointManager : MonoBehaviour
     public string NombreZonaActual => zonaActual.nombreZona;
 
     public Transform Water => (zonaActual.aguas != null && zonaActual.aguas.Count > 0 && zonaActual.aguas[0] != null) 
-    ? zonaActual.aguas[0].transform 
-    : null;
+        ? zonaActual.aguas[0].transform 
+        : null;
 
-
+    // ESTRUCTURAS DE DATOS
     private Dictionary<BotonPuerta, bool> estadosBotonesGuardados = new();
-
     private Queue<ZonaInundacion> zonasPendientes = new();
-
     private Stack<ZonaInundacion> zonasJugadas = new();
 
     private ZonaInundacion zonaActual;
@@ -58,18 +65,26 @@ public class CheckpointManager : MonoBehaviour
 
         RefrescarBotones();
         InicializarZonas();
+
+        // Notificación inicial del estado
+        OnMuertesCambiadas?.Invoke(muertes);
+        OnCheckpointAlcanzado?.Invoke(checkpointsAlcanzados);
+        OnTiempoActualizado?.Invoke(tiempoTranscurrido);
     }
 
     private void Update()
     {
-        if (!juegoTerminado) tiempoTranscurrido += Time.deltaTime;
+        if (!juegoTerminado)
+        {
+            tiempoTranscurrido += Time.deltaTime;
+            //Notificamos el tiempo transcurrido en cada frame
+            OnTiempoActualizado?.Invoke(tiempoTranscurrido);
+        }
     }
 
     // ZONAS
 
-    /// <summary>
     /// Carga las zonas del nivel en la Queue, en el orden del Inspector.
-    /// </summary>
     private void InicializarZonas()
     {
         zonasPendientes.Clear();
@@ -99,6 +114,8 @@ public class CheckpointManager : MonoBehaviour
 
         // Desencolar la siguiente zona
         zonaActual = zonasPendientes.Dequeue();
+        
+        // Guardar la zona actual en el historial
         zonasJugadas.Push(zonaActual);
 
         // Activar todas las aguas de la nueva zona
@@ -111,6 +128,9 @@ public class CheckpointManager : MonoBehaviour
         }
 
         GuardarEstadoActualBotones();
+
+        // Notifica cambio de zona
+        OnZonaCambiada?.Invoke(zonaActual.nombreZona);
     }
 
     private void DetenerTodasLasAguas()
@@ -133,6 +153,10 @@ public class CheckpointManager : MonoBehaviour
     {
         currentSpawnPoint = newSpawnPosition;
         checkpointsAlcanzados++;
+
+        // Notifica incremento de checkpoints
+        OnCheckpointAlcanzado?.Invoke(checkpointsAlcanzados);
+
         RefrescarBotones();
         GuardarEstadoActualBotones();
     }
@@ -146,8 +170,13 @@ public class CheckpointManager : MonoBehaviour
     {
         estadosBotonesGuardados.Clear();
         foreach (BotonPuerta boton in todosLosBotones)
+        {
             if (boton != null)
+            {
+                //Dictionary
                 estadosBotonesGuardados[boton] = boton.ObtenerEstado();
+            }
+        }
     }
 
     // RESPAWN
@@ -163,7 +192,10 @@ public class CheckpointManager : MonoBehaviour
         muertes++;
         juegoTerminado = false;
 
-        // Usar la última zona del Stack 
+        // Notifica incremento de muertes
+        OnMuertesCambiadas?.Invoke(muertes);
+
+        // Usar la última zona del Stack para respawn
         if (zonasJugadas.Count > 0)
         {
             ZonaInundacion zonaRespawn = zonasJugadas.Peek();
@@ -201,8 +233,12 @@ public class CheckpointManager : MonoBehaviour
     private void RestaurarEstadoBotones()
     {
         foreach (var entrada in estadosBotonesGuardados)
+        {
             if (entrada.Key != null)
+            {
                 entrada.Key.EstablecerEstado(entrada.Value);
+            }
+        }
     }
 
     public void FinalizarJuego() => juegoTerminado = true;
