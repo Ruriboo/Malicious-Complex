@@ -26,7 +26,9 @@ public class CheckpointManager : MonoBehaviour
     public float TiempoTranscurrido => tiempoTranscurrido;
     public string NombreZonaActual => zonaActual.nombreZona;
 
-    public Transform Water => zonaActual.agua != null ? zonaActual.agua.transform : null;
+    public Transform Water => (zonaActual.aguas != null && zonaActual.aguas.Count > 0 && zonaActual.aguas[0] != null) 
+    ? zonaActual.aguas[0].transform 
+    : null;
 
 
     private Dictionary<BotonPuerta, bool> estadosBotonesGuardados = new();
@@ -89,24 +91,23 @@ public class CheckpointManager : MonoBehaviour
     {
         if (zonasPendientes.Count == 0)
         {
-            Debug.Log("[CheckpointManager] ¡No quedan más zonas!");
             return;
         }
 
-        // Detener el agua de la zona anterior si existía
-        if (zonaActual.agua != null)
-            zonaActual.agua.Flood = false;
+        // Detener todas las aguas del nivel
+        DetenerTodasLasAguas();
 
-        // Desencolar la siguiente zona y apilarla en el historial
+        // Desencolar la siguiente zona
         zonaActual = zonasPendientes.Dequeue();
         zonasJugadas.Push(zonaActual);
 
-        // Asegurar que solo la zona actual tiene el agua activa
-        DetenerTodasLasAguas();
-        if (zonaActual.agua != null)
+        // Activar todas las aguas de la nueva zona
+        if (zonaActual.aguas != null)
         {
-            zonaActual.agua.Flood = true;
-            Debug.Log($"[CheckpointManager] Zona activada: {zonaActual.nombreZona}");
+            foreach (var agua in zonaActual.aguas)
+            {
+                if (agua != null) agua.Flood = true;
+            }
         }
 
         GuardarEstadoActualBotones();
@@ -115,8 +116,15 @@ public class CheckpointManager : MonoBehaviour
     private void DetenerTodasLasAguas()
     {
         foreach (var zona in zonasDelNivel)
-            if (zona.agua != null)
-                zona.agua.Flood = false;
+        {
+            if (zona.aguas != null)
+            {
+                foreach (var agua in zona.aguas)
+                {
+                    if (agua != null) agua.Flood = false;
+                }
+            }
+        }
     }
 
     // CHECKPOINTS
@@ -169,13 +177,19 @@ public class CheckpointManager : MonoBehaviour
                 if (cc != null) cc.enabled = true;
             }
 
-            // Resetear el agua de la zona a su altura inicial
-            if (zonaRespawn.agua != null)
+            // Resetear todas las aguas de la zona a su altura inicial
+            if (zonaRespawn.aguas != null)
             {
-                Vector3 pos = zonaRespawn.agua.transform.position;
-                pos.y = zonaRespawn.alturaInicial;
-                zonaRespawn.agua.transform.position = pos;
-                zonaRespawn.agua.Flood = true;
+                foreach (var agua in zonaRespawn.aguas)
+                {
+                    if (agua != null)
+                    {
+                        Vector3 pos = agua.transform.position;
+                        pos.y = zonaRespawn.alturaInicial;
+                        agua.transform.position = pos;
+                        agua.Flood = true;
+                    }
+                }
             }
         }
 

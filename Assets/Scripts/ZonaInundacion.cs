@@ -1,22 +1,30 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public struct ZonaInundacion
 {
-    [Tooltip("Nombre identificador de la zona (ej: 'Zona 1 - Tutorial')")]
     public string nombreZona;
 
-    [Tooltip("Referencia al FloodWater de esta zona")]
-    public FloodWater agua;
+    public List<FloodWater> aguas;
 
-    [Tooltip("Punto donde aparece el jugador al entrar/respawnear en esta zona")]
     public Transform puntoEntrada;
 
-    [Tooltip("Altura Y inicial del agua al empezar esta zona")]
     public float alturaInicial;
 
+    /// <summary>
+    /// Valida que la zona tenga al menos un punto de entrada y al menos un agua asignada.
+    /// </summary>
     public bool EsValida()
     {
-        return agua != null && puntoEntrada != null;
+        if (puntoEntrada == null || aguas == null || aguas.Count == 0)
+            return false;
+
+        foreach (var agua in aguas)
+        {
+            if (agua != null) return true;
+        }
+
+        return false;
     }
 }
