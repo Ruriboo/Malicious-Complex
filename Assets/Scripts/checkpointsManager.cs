@@ -14,18 +14,13 @@ public class CheckpointManager : MonoBehaviour
 
     public static event Action<string> OnZonaCambiada;
 
-    [Header("Referencias Principales")]
     [SerializeField] private Transform player;
     [SerializeField] private Oxigeno oxigeno;
 
-    [Header("Zonas del Nivel (en orden de progresión)")]
-    [Tooltip("Agregar en orden: Zona 1, Zona 2, Zona 3, Zona 4...")]
     [SerializeField] private List<ZonaInundacion> zonasDelNivel = new();
 
-    [Header("Configuración de Respawn")]
     [SerializeField] private Vector3 currentSpawnPoint;
 
-    [Header("Estadísticas")]
     [SerializeField] private int muertes = 0;
     [SerializeField] private int checkpointsAlcanzados = 0;
     [SerializeField] private float tiempoTranscurrido = 0f;
@@ -34,7 +29,7 @@ public class CheckpointManager : MonoBehaviour
     public int CheckpointsAlcanzados => checkpointsAlcanzados;
     public float TiempoTranscurrido => tiempoTranscurrido;
     public string NombreZonaActual => zonaActual.nombreZona;
-
+    
     public Transform Water => (zonaActual.aguas != null && zonaActual.aguas.Count > 0 && zonaActual.aguas[0] != null) 
         ? zonaActual.aguas[0].transform 
         : null;

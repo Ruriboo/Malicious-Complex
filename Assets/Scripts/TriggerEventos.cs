@@ -4,7 +4,6 @@ public abstract class TriggerEventos : MonoBehaviour
 {
     [SerializeField] protected bool soloUnaVez = true;
     protected bool yaFueActivado = false;
-
     private void OnTriggerEnter(Collider other)
     {
         if (yaFueActivado && soloUnaVez) return;
