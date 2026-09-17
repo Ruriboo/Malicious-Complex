@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - Zipline
+  - WaterStop
   layers:
   - Default
   - TransparentFX
