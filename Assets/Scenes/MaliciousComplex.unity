@@ -6819,6 +6819,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1607586027}
     - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: oxigenoMax
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: barraOxigeno
       value: 
       objectReference: {fileID: 613062388}
@@ -6913,6 +6917,10 @@ PrefabInstance:
     - target: {fileID: 4322746432546342532, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4322746432546342534, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: field of view
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4463929455308533015, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_Layer
