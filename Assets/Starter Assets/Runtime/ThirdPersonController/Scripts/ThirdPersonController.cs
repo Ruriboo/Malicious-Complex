@@ -329,14 +329,14 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
 
-                float locomotionZ = _input.move.y;
+                float locomotionZ = _input.move.magnitude;
 
                 if (_input.sprint)
                 {
                     locomotionZ *= 2f;
                 }
 
-                _animator.SetFloat(_animIDMovX, _input.move.x);
+                _animator.SetFloat(_animIDMovX, 0f);
                 _animator.SetFloat(_animIDMovZ, locomotionZ);
             }
         }
