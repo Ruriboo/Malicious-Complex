@@ -16038,7 +16038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8a8876031a5345b88801697568794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WallRunWall
-  wallRunSpeed: 7
+  wallRunSpeed: 4
   wallRunDuration: 2
 --- !u!43 &1016719825
 Mesh:

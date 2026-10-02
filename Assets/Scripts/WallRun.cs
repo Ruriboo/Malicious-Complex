@@ -121,14 +121,22 @@ public class WallRun : MonoBehaviour
         wallRunTimer = 0f;
         startHeight = transform.position.y;
 
-        Debug.Log("START WALLRUN - BOOL: " + wallRunning);
+        float side = Vector3.Dot(transform.right, wallNormal);
 
         if (animator)
         {
-            animator.SetBool(animIDWallRunning, true);
-            Debug.Log("ANIMATOR BOOL: " + animator.GetBool(animIDWallRunning));
+            if (side > 0f)
+            {
+                animator.SetBool("IsWallRunningLeft", true);
+                animator.SetBool("IsWallRunning", false);
+            }
+            else
+            {
+                animator.SetBool("IsWallRunningLeft", false);
+                animator.SetBool("IsWallRunning", true);
+            }
         }
-    }
+}
     private void UpdateWallRun()
     {
         if (Keyboard.current == null ||
@@ -175,6 +183,10 @@ public class WallRun : MonoBehaviour
         currentWall = null;
 
         if (animator)
-            animator.SetBool(animIDWallRunning, false);
-    }
+        {
+            animator.SetBool("IsWallRunning", false);
+            animator.SetBool("IsWallRunningLeft", false);
+        }
+    
+}
 }
