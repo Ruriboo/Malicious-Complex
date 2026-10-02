@@ -701,6 +701,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 255262187981599156, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 263657341703710630, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2889,6 +2893,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 63027878}
+    - target: {fileID: 8659523466563109403, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8662884154212348748, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
       propertyPath: m_LocalScale.y
       value: 6.5
@@ -7144,7 +7152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8921933756341702755, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: wallCheckDistance
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8921933756341702755, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: groundLayer.m_Bits
