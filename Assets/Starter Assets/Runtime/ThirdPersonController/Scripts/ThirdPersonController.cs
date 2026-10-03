@@ -123,7 +123,7 @@ namespace StarterAssets
         [Header("Slide")]
         public float SlideSpeed = 7f;
         public float SlideDuration = 1.5f;
-        public float SlideHeight = 1.0f;
+        public float SlideHeight = 0.3f;
 
         private bool _isSliding;
         private float _slideTimer;
@@ -350,7 +350,7 @@ namespace StarterAssets
     if (!Grounded)
         return;
 
-    if (Keyboard.current.leftCtrlKey.wasPressedThisFrame && _speed > 2f)
+    if (Keyboard.current.leftCtrlKey.wasPressedThisFrame && _speed > 1f)
     {
         StartSlide();
     }
