@@ -499,17 +499,24 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
+
         private void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 if (FootstepAudioClips.Length > 0)
                 {
-                    var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    int index = Random.Range(0, FootstepAudioClips.Length);
+
+                    AudioSource.PlayClipAtPoint(
+                        FootstepAudioClips[index],
+                        transform.TransformPoint(_controller.center),
+                        FootstepAudioVolume
+                    );
                 }
             }
         }
+
 
         private void OnLand(AnimationEvent animationEvent)
         {
