@@ -8,6 +8,8 @@ public class Zipline : MonoBehaviour
     [SerializeField] private float zipScale = 0.2f;
     [SerializeField] private float arrivalThreshold = 0.4f;
     [SerializeField] private LineRenderer cable;
+    [SerializeField] private AudioSource ziplineAudio;
+    [SerializeField] private AudioSource chainAudio;
 
     public Transform ZipTransform;
 
@@ -37,18 +39,19 @@ public class Zipline : MonoBehaviour
             ResetZipline();
         }
     }
-
     public void StartZipline(GameObject player)
     {
         if (zipping) return;
-
+        if (chainAudio != null)
+        {
+            chainAudio.Play();
+        }
 
         localZip = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         localZip.transform.position = ZipTransform.position;
         localZip.transform.localScale = Vector3.one * zipScale;
         localZip.GetComponent<Collider>().isTrigger = true;
         localZip.GetComponent<MeshRenderer>().enabled = false;
-
 
         characterController = player.GetComponent<CharacterController>();
         controller = player.GetComponent<ThirdPersonController>();
@@ -61,12 +64,25 @@ public class Zipline : MonoBehaviour
         player.transform.parent = localZip.transform;
         player.transform.localPosition = new Vector3(0, -10f, 0);
         player.transform.localRotation = Quaternion.identity;
-       
+
         if (animator)
             animator.SetBool(animIDZiplining, true);
 
+        zipping = true; Debug.Log("START ZIPLINE: se ejecuto");
 
-        zipping = true;
+        if (ziplineAudio == null)
+        {
+            Debug.LogError("ZIPLINE AUDIO ES NULL");
+            return;
+        }
+
+        Debug.Log("Audio: " + ziplineAudio.clip.name);
+        Debug.Log("Volumen: " + ziplineAudio.volume);
+        Debug.Log("Mute: " + ziplineAudio.mute);
+
+        ziplineAudio.Play();
+
+        Debug.Log("Audio reproduciendose: " + ziplineAudio.isPlaying);
     }
 
     private void ResetZipline()
