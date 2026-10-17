@@ -9,7 +9,7 @@ public class Zipline : MonoBehaviour
     [SerializeField] private float arrivalThreshold = 0.4f;
     [SerializeField] private LineRenderer cable;
     [SerializeField] private AudioSource ziplineAudio;
-    [SerializeField] private AudioSource chainAudio;
+    [SerializeField] private AudioSource detachAudio;
 
     public Transform ZipTransform;
 
@@ -42,10 +42,9 @@ public class Zipline : MonoBehaviour
     public void StartZipline(GameObject player)
     {
         if (zipping) return;
-        if (chainAudio != null)
-        {
-            chainAudio.Play();
-        }
+
+
+        
 
         localZip = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         localZip.transform.position = ZipTransform.position;
@@ -80,14 +79,24 @@ public class Zipline : MonoBehaviour
         Debug.Log("Volumen: " + ziplineAudio.volume);
         Debug.Log("Mute: " + ziplineAudio.mute);
 
-        ziplineAudio.Play();
+        if (ziplineAudio.isPlaying)
+        {
+            ziplineAudio.Stop();
+        }
 
-        Debug.Log("Audio reproduciendose: " + ziplineAudio.isPlaying);
+        ziplineAudio.Play();
+        Debug.Log("INICIO: " + gameObject.name);
+        Debug.Log("Audio reproduciéndose: " + ziplineAudio.isPlaying);
     }
 
     private void ResetZipline()
     {
         if (!zipping) return;
+
+        Debug.Log("FINAL: " + gameObject.name);
+
+        if (detachAudio != null)
+            detachAudio.Play();
 
         GameObject player = localZip.transform.GetChild(0).gameObject;
         player.transform.parent = null;
