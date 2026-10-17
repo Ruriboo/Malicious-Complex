@@ -10,6 +10,10 @@ public class Zipline : MonoBehaviour
     [SerializeField] private LineRenderer cable;
     [SerializeField] private AudioSource ziplineAudio;
     [SerializeField] private AudioSource detachAudio;
+    [SerializeField] private AudioClip ziplineVariation1;
+    [SerializeField] private AudioClip ziplineVariation2;
+
+    private AudioClip originalZiplineClip;
 
     public Transform ZipTransform;
 
@@ -22,6 +26,8 @@ public class Zipline : MonoBehaviour
 
     void Awake()
     {
+        if (ziplineAudio != null)
+            originalZiplineClip = ziplineAudio.clip;
         cable.SetPosition(0, ZipTransform.position);
         cable.SetPosition(1, targetZip.ZipTransform.position);
     }
@@ -78,13 +84,33 @@ public class Zipline : MonoBehaviour
         Debug.Log("Audio: " + ziplineAudio.clip.name);
         Debug.Log("Volumen: " + ziplineAudio.volume);
         Debug.Log("Mute: " + ziplineAudio.mute);
+        ziplineAudio.Stop();
 
-        if (ziplineAudio.isPlaying)
+        ziplineAudio.Stop();
+
+        AudioClip[] clips =
         {
-            ziplineAudio.Stop();
+    originalZiplineClip,
+    ziplineVariation1,
+    ziplineVariation2
+};
+
+        System.Collections.Generic.List<AudioClip> validClips =
+            new System.Collections.Generic.List<AudioClip>();
+
+        foreach (AudioClip clip in clips)
+        {
+            if (clip != null)
+                validClips.Add(clip);
         }
 
-        ziplineAudio.Play();
+        if (validClips.Count > 0)
+        {
+            ziplineAudio.clip = validClips[Random.Range(0, validClips.Count)];
+            ziplineAudio.time = 0f;
+            ziplineAudio.Play();
+        }
+
         Debug.Log("INICIO: " + gameObject.name);
         Debug.Log("Audio reproduciéndose: " + ziplineAudio.isPlaying);
     }
