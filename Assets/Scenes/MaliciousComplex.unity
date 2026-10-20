@@ -10769,15 +10769,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4322746432546342529, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.20000103
+      value: 0.1999991
       objectReference: {fileID: 0}
     - target: {fileID: 4322746432546342529, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4449997
+      value: 0.44500017
       objectReference: {fileID: 0}
     - target: {fileID: 4322746432546342529, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.0000005
+      value: -3.9999986
       objectReference: {fileID: 0}
     - target: {fileID: 4322746432546342529, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10853,15 +10853,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5969358801691055052, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.084156
+      value: 37.307953
       objectReference: {fileID: 0}
     - target: {fileID: 5969358801691055052, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 25.740002
+      value: 1.9400005
       objectReference: {fileID: 0}
     - target: {fileID: 5969358801691055052, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -21.017847
+      value: 42.62486
       objectReference: {fileID: 0}
     - target: {fileID: 5969358801691055052, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10913,15 +10913,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023099218285340695, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.20000103
+      value: 0.1999991
       objectReference: {fileID: 0}
     - target: {fileID: 7023099218285340695, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4449997
+      value: 0.44500017
       objectReference: {fileID: 0}
     - target: {fileID: 7023099218285340695, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.0000005
+      value: -3.9999986
       objectReference: {fileID: 0}
     - target: {fileID: 7023099218285341160, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_Layer
@@ -10996,6 +10996,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7716942235845747710, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: FootstepAudioVolume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716942235845747710, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: GroundLayers.m_Bits
       value: 9
       objectReference: {fileID: 0}
@@ -11065,6 +11069,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7716942235845747701, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 505751336}
+    - targetCorrespondingSourceObject: {fileID: 7716942235845747701, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 505751337}
   m_SourcePrefab: {fileID: 100100000, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
 --- !u!43 &466147546
 Mesh:
@@ -11801,6 +11808,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &505751337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74777217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e719f3a2afe1a34dac9e1d29bf4d24a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaterAudio
+  pasosAgua:
+  - {fileID: 8300000, guid: 44feae38d3be74447b56c7673a270496, type: 3}
+  - {fileID: 8300000, guid: 7459218c6f12df64b9f879cac8fe05c7, type: 3}
+  - {fileID: 8300000, guid: 8c843d7c1e193a0489ead3812e4aeae5, type: 3}
+  - {fileID: 8300000, guid: 162054bdd70c1e648867821db99231ec, type: 3}
+  - {fileID: 8300000, guid: c76150f25e9d3b64b81deb7d6a6cdf98, type: 3}
+  - {fileID: 8300000, guid: 6faeb4c21875ba84f9883b6fb8b11e88, type: 3}
+  volumen: 1
 --- !u!1 &506283176
 GameObject:
   m_ObjectHideFlags: 0
