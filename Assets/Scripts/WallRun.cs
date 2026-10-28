@@ -62,11 +62,8 @@ public class WallRun : MonoBehaviour
             return;
 
         if (!FindWall())
-        {
-            Debug.Log("NO ENCUENTRA WALLRUN");
             return;
-        }
-        Debug.Log("ENCUENTRA WALLRUN");
+
         StartWallRun();
     }
 

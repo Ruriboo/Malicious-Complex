@@ -70,6 +70,14 @@ crashlytics-build.properties
 # Packed Addressables
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
+# Editor / herramientas locales
+.vscode/
+*.slnx
+
+# Material de estudio y grabaciones crudas (no forman parte del juego)
+/Teoria Audio Interactivo/
+/Audios caseros/
+
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
