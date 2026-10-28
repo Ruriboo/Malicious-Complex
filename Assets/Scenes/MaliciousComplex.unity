@@ -701,6 +701,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -3.82
       objectReference: {fileID: 0}
+    - target: {fileID: 3836248332115884899, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.310643
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836248332115884899, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.39423648
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836248332115884899, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.78334147
+      objectReference: {fileID: 0}
+    - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 268c9cba3f1bdb241a3233bbea0c9e64, type: 3}
+    - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: MaxDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 9013226626530380167, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
     - target: {fileID: 8590441137535951537, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
       propertyPath: m_Name
       value: ElectricFlash (1)
@@ -7162,11 +7186,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4322746432546342529, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.20000008
+      value: 0.19999912
       objectReference: {fileID: 0}
     - target: {fileID: 4322746432546342529, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4449997
+      value: 0.44500017
       objectReference: {fileID: 0}
     - target: {fileID: 4322746432546342529, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7246,15 +7270,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5969358801691055052, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.927509
+      value: 36.18647
       objectReference: {fileID: 0}
     - target: {fileID: 5969358801691055052, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 32.64
+      value: 1.8399987
       objectReference: {fileID: 0}
     - target: {fileID: 5969358801691055052, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.9099674
+      value: 20.438778
       objectReference: {fileID: 0}
     - target: {fileID: 5969358801691055052, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7306,11 +7330,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023099218285340695, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.20000008
+      value: 0.19999912
       objectReference: {fileID: 0}
     - target: {fileID: 7023099218285340695, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4449997
+      value: 0.44500017
       objectReference: {fileID: 0}
     - target: {fileID: 7023099218285340695, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -20411,7 +20435,7 @@ AudioSource:
   m_GameObject: {fileID: 1324591111}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 9013226626530380167, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 8267aa6ea43cea5419c3fac5ff73a089, type: 3}
   m_PlayOnAwake: 1
@@ -22352,6 +22376,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -3.82
       objectReference: {fileID: 0}
+    - target: {fileID: 3836248332115884899, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.6021028
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836248332115884899, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.13956259
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836248332115884899, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.8880545
+      objectReference: {fileID: 0}
+    - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 8124d915c0eab64418256b3911d6882d, type: 3}
+    - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: MaxDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 9013226626530380167, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
     - target: {fileID: 8590441137535951537, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
       propertyPath: m_Name
       value: ElectricFlash
@@ -27766,6 +27814,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -3.82
       objectReference: {fileID: 0}
+    - target: {fileID: 3836248332115884899, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0061318185
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836248332115884899, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.30907857
+      objectReference: {fileID: 0}
+    - target: {fileID: 3836248332115884899, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.35166055
+      objectReference: {fileID: 0}
+    - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 5b109c970fedf6e42aa31a91ea133a31, type: 3}
+    - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: MaxDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 9013226626530380167, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
     - target: {fileID: 8590441137535951537, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
       propertyPath: m_Name
       value: ElectricFlash (2)
@@ -33465,6 +33537,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3689040521506470642, guid: 11044bcf87ade294b87e301d401df836, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 9013226626530380167, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
     - target: {fileID: 8739559831779807623, guid: 11044bcf87ade294b87e301d401df836, type: 3}
       propertyPath: m_Name
       value: Computadora
@@ -33570,6 +33646,10 @@ PrefabInstance:
       propertyPath: MaxDistance
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7575878027970392475, guid: 7afbd3acbcc876840a50c81adb56964c, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 9013226626530380167, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33806,6 +33886,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cano
       objectReference: {fileID: 0}
+    - target: {fileID: 4836176376679389798, guid: 6106fe63693c6be449258e7f9429e8dc, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 9013226626530380167, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
     - target: {fileID: 7050836597812327837, guid: 6106fe63693c6be449258e7f9429e8dc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.545757
