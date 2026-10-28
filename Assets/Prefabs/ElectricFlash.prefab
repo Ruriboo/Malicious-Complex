@@ -5044,7 +5044,7 @@ MonoBehaviour:
   duracionParpadeo: 0.06
   duracionLuz: 3
   intensidad: 200
-  audioRayo: {fileID: 0}
+  audioRayo: {fileID: 4328718065947484916}
 --- !u!82 &4328718065947484916
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5056,7 +5056,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 8124d915c0eab64418256b3911d6882d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
