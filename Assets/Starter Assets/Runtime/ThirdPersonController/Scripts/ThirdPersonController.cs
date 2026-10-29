@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
+
 namespace StarterAssets
 {
     [RequireComponent(typeof(CharacterController))]
@@ -30,7 +31,7 @@ namespace StarterAssets
 
         public AudioClip LandingAudioClip;
         public AudioClip[] FootstepAudioClips;
-        [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
+        [Range(0, 1)] public float FootstepAudioVolume = 0.2f;
 
         [Space(10)]
         [Tooltip("The height the player can jump")]
@@ -118,6 +119,22 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
 
+        // Slide
+        [Header("Slide")]
+        public float SlideSpeed = 7f;
+        public float SlideDuration = 1.5f;
+        public float SlideHeight = 0.3f;
+
+        private bool _isSliding;
+        private float _slideTimer;
+        private float _originalControllerHeight;
+        private Vector3 _originalControllerCenter;
+
+        private int _animIDSliding;
+        private int _animIDMovX;
+        private int _animIDMovZ;
+
+
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
@@ -158,6 +175,10 @@ namespace StarterAssets
 
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
+
+            _originalControllerHeight = _controller.height;
+            _originalControllerCenter = _controller.center;
+
             _input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
             _playerInput = GetComponent<PlayerInput>();
@@ -173,12 +194,22 @@ namespace StarterAssets
         }
 
         private void Update()
+
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
             GroundedCheck();
-            Move();
+            JumpAndGravity();
+
+            if (_isSliding)
+            {
+                SlideMovement();
+            }
+            else
+            {
+                Move();
+                CheckForSlide();
+            }
         }
 
         private void LateUpdate()
@@ -193,8 +224,10 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-        }
-
+            _animIDSliding = Animator.StringToHash("IsSliding");
+            _animIDMovX = Animator.StringToHash("MovX");
+            _animIDMovZ = Animator.StringToHash("MovZ");
+        }             
         private void GroundedCheck()
         {
             // set sphere position, with offset
@@ -233,6 +266,7 @@ namespace StarterAssets
 
         private void Move()
         {
+            
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
@@ -296,9 +330,82 @@ namespace StarterAssets
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+
+                float locomotionZ = _input.move.magnitude;
+
+                if (_input.sprint)
+                {
+                    locomotionZ *= 2f;
+                }
+
+                _animator.SetFloat(_animIDMovX, 0f);
+                _animator.SetFloat(_animIDMovZ, locomotionZ);
+            }
+        }
+       private void CheckForSlide()
+{
+    if (!Grounded)
+        return;
+
+    if (Keyboard.current.leftCtrlKey.wasPressedThisFrame && _speed > 1f)
+    {
+        StartSlide();
+    }
+}
+
+
+        private void StartSlide()
+        {
+            _isSliding = true;
+            _slideTimer = SlideDuration;
+
+            // Guardamos la altura y centro originales
+            _originalControllerHeight = _controller.height;
+            _originalControllerCenter = _controller.center;
+
+            // Bajamos el Character Controller
+            float heightDifference = _originalControllerHeight - SlideHeight;
+
+            _controller.height = SlideHeight;
+            _controller.center = _originalControllerCenter +
+                                 Vector3.down * (heightDifference / 2f);
+
+            // Activamos la animación
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDSliding, true);
             }
         }
 
+        private void SlideMovement()
+        {
+            _slideTimer -= Time.deltaTime;
+
+            // Avanza hacia donde está mirando el personaje
+            Vector3 slideDirection = transform.forward;
+
+            _controller.Move(slideDirection * SlideSpeed * Time.deltaTime);
+
+            if (_slideTimer <= 0f)
+            {
+                EndSlide();
+            }
+        }
+
+        private void EndSlide()
+        {
+            _isSliding = false;
+
+            // Restauramos el Character Controller
+            _controller.height = _originalControllerHeight;
+            _controller.center = _originalControllerCenter;
+
+            // Apagamos la animación
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDSliding, false);
+            }
+        }
         private void JumpAndGravity()
         {
             if (Grounded)

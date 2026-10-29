@@ -7,10 +7,13 @@ public class BotonPuerta : ObjetoInteractuable
     private IInteractuable objetivoInteractuable;
 
     private bool estaActivado = false;
-    private MeshRenderer rendererBoton;
+    private MeshRenderer rendererBoton; 
+    private Light luzBoton;
 
     private void Awake()
     {
+        luzBoton = GetComponentInChildren<Light>(true);
+        
         rendererBoton = GetComponent<MeshRenderer>();
         
         if (objetoObjetivo != null)
@@ -43,15 +46,29 @@ public class BotonPuerta : ObjetoInteractuable
             estaActivado = !estaActivado;
             AplicarColor();
         }
-    }   
+    }
+
 
     private void AplicarColor()
     {
+        Color colorBoton = estaActivado ? Color.green : Color.red;
+
         if (rendererBoton != null)
         {
-            rendererBoton.material.color = estaActivado ? Color.green : Color.red;
+            rendererBoton.material.color = colorBoton;
+        }
+        rendererBoton.material.EnableKeyword("_EMISSION");
+        rendererBoton.material.SetColor("_EmissionColor", colorBoton * 2f);
+
+        if (luzBoton != null)
+        {
+            luzBoton.color = colorBoton;
+            luzBoton.enabled = true;
+            luzBoton.intensity = 1.5f;
+            luzBoton.range = 2f;
         }
     }
+
 
     public bool ObtenerEstado() => estaActivado;
 
