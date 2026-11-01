@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 
 public class FloodWater : MonoBehaviour
@@ -10,8 +11,17 @@ public class FloodWater : MonoBehaviour
     [SerializeField] private float velocidad = 1f;
     [SerializeField] private bool flood = true;//para activar y desactivar el movimiento del agua.
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip sfxUnderwater;
+    [SerializeField] private float minPitch = 0.9f;
+    [SerializeField] private float maxPitch = 1.05f;
+
     public bool Flood { get => flood; set => flood = value; }
 
+    void Start()
+    {
+        if (audioSource == null) audioSource = GetComponent<AudioSource>();
+    }
     void Update()
     {
         if (flood)
@@ -38,6 +48,12 @@ public class FloodWater : MonoBehaviour
             oxigeno.EntrarAgua();
             oxigeno.reducirOxigeno(waterDamage); //esto llama a la funcion que esta adentro de oxigeno
             Debug.Log("DAMAGE");
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = sfxUnderwater;
+                audioSource.pitch = Random.Range(minPitch, maxPitch);
+                audioSource.Play();
+            }
         }
     }
 
@@ -49,6 +65,10 @@ public class FloodWater : MonoBehaviour
         {
             oxigeno.SalirAgua();
             Debug.Log("Salió del agua → oxígeno rellenado");
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
         }
     }
 }

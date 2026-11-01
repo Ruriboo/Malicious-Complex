@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class BotonPuerta : ObjetoInteractuable
 {
@@ -9,17 +10,22 @@ public class BotonPuerta : ObjetoInteractuable
     private bool estaActivado = false;
     private MeshRenderer rendererBoton; 
     private Light luzBoton;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip sfxBoton;
+    [SerializeField] private float minPitch = 0.9f;
+    [SerializeField] private float maxPitch = 1.05f;
 
     private void Awake()
     {
         luzBoton = GetComponentInChildren<Light>(true);
         
         rendererBoton = GetComponent<MeshRenderer>();
-        
+
         if (objetoObjetivo != null)
         {
             objetivoInteractuable = objetoObjetivo as IInteractuable;
         }
+        if (audioSource == null) audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -45,6 +51,7 @@ public class BotonPuerta : ObjetoInteractuable
             
             estaActivado = !estaActivado;
             AplicarColor();
+            SFXBoton();
         }
     }
 
@@ -82,5 +89,11 @@ public class BotonPuerta : ObjetoInteractuable
             if (estaActivado) puerta.AbrirPuertacheck();
             else puerta.CerrarPuertacheck();
         }
+    }
+    private void SFXBoton()
+    {
+        if (audioSource == null || sfxBoton == null) return;
+        audioSource.pitch = Random.Range(minPitch, maxPitch);
+        audioSource.PlayOneShot(sfxBoton);
     }
 }
