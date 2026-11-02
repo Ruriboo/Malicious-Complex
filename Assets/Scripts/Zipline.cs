@@ -14,7 +14,9 @@ public class Zipline : MonoBehaviour
     private bool zipping = false;
     private GameObject localZip;
     private CharacterController characterController;
-    private ThirdPersonController controller; 
+    private ThirdPersonController controller;
+    private Animator animator;
+    private int animIDZiplining;
 
     void Awake()
     {
@@ -50,13 +52,19 @@ public class Zipline : MonoBehaviour
 
         characterController = player.GetComponent<CharacterController>();
         controller = player.GetComponent<ThirdPersonController>();
+        animator = player.GetComponent<Animator>();
+        animIDZiplining = Animator.StringToHash("IsZiplining");
 
         if (controller) controller.enabled = false;
         if (characterController) characterController.enabled = false;
 
         player.transform.parent = localZip.transform;
-        player.transform.localPosition = new Vector3(0, -2f, 0);
+        player.transform.localPosition = new Vector3(0, -10f, 0);
         player.transform.localRotation = Quaternion.identity;
+       
+        if (animator)
+            animator.SetBool(animIDZiplining, true);
+
 
         zipping = true;
     }
@@ -73,6 +81,10 @@ public class Zipline : MonoBehaviour
 
         if (characterController) characterController.enabled = true;
         if (controller) controller.enabled = true;
+
+        if (animator)
+            animator.SetBool(animIDZiplining, false);
+
 
         Destroy(localZip);
         localZip = null;
