@@ -13,8 +13,6 @@ public class FloodWater : MonoBehaviour
 
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip sfxUnderwater;
-    [SerializeField] private float minPitch = 0.9f;
-    [SerializeField] private float maxPitch = 1.05f;
 
     public bool Flood { get => flood; set => flood = value; }
 
@@ -51,7 +49,7 @@ public class FloodWater : MonoBehaviour
             if (!audioSource.isPlaying)
             {
                 audioSource.clip = sfxUnderwater;
-                audioSource.pitch = Random.Range(minPitch, maxPitch);
+                audioSource.pitch = Random.Range(0.9f, 1.1f);
                 audioSource.Play();
             }
         }

@@ -17,8 +17,6 @@ public class PuertaPortal : ObjetoInteractuable
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip sfxAbrir;
     [SerializeField] private AudioClip sfxCerrar; 
-    [SerializeField] private float minPitch = 0.9f;
-    [SerializeField] private float maxPitch = 1.05f;
 
     private bool estaAbierta = false;
     private Vector3 posIzquierdaCerrada, posIzquierdaAbierta;
@@ -81,14 +79,14 @@ public class PuertaPortal : ObjetoInteractuable
     private void SFXAbrir()
     {
         if (audioSource == null || sfxAbrir == null) return;
-        audioSource.pitch = Random.Range(minPitch, maxPitch);
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
         audioSource.PlayOneShot(sfxAbrir);
     }
 
     private void SFXCerrar()
     {
         if (audioSource == null || sfxCerrar == null) return;
-        audioSource.pitch = Random.Range(minPitch, maxPitch);
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
         audioSource.PlayOneShot(sfxCerrar);
     }
 }

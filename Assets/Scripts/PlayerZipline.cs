@@ -7,8 +7,6 @@ public class PlayerZipline : MonoBehaviour
     [SerializeField] private float checkRadius = 2f;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip sfxZip;
-    [SerializeField] private float minPitch = 0.9f;
-    [SerializeField] private float maxPitch = 1.05f;
 
     private void Start()
     {
@@ -40,7 +38,7 @@ public class PlayerZipline : MonoBehaviour
     private void SFXZipline()
     {
         if (audioSource == null || sfxZip == null) return;
-        audioSource.pitch = Random.Range(minPitch, maxPitch);
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
         audioSource.PlayOneShot(sfxZip);
     }
 }
