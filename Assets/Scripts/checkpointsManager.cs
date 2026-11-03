@@ -61,7 +61,6 @@ public class CheckpointManager : MonoBehaviour
         RefrescarBotones();
         InicializarZonas();
 
-        // Notificación inicial del estado
         OnMuertesCambiadas?.Invoke(muertes);
         OnCheckpointAlcanzado?.Invoke(checkpointsAlcanzados);
         OnTiempoActualizado?.Invoke(tiempoTranscurrido);
@@ -72,14 +71,10 @@ public class CheckpointManager : MonoBehaviour
         if (!juegoTerminado)
         {
             tiempoTranscurrido += Time.deltaTime;
-            //Notificamos el tiempo transcurrido en cada frame
-            OnTiempoActualizado?.Invoke(tiempoTranscurrido);
         }
     }
 
     // ZONAS
-
-    /// Carga las zonas del nivel en la Queue, en el orden del Inspector.
     private void InicializarZonas()
     {
         zonasPendientes.Clear();
@@ -104,16 +99,12 @@ public class CheckpointManager : MonoBehaviour
             return;
         }
 
-        // Detener todas las aguas del nivel
         DetenerTodasLasAguas();
 
-        // Desencolar la siguiente zona
         zonaActual = zonasPendientes.Dequeue();
         
-        // Guardar la zona actual en el historial
         zonasJugadas.Push(zonaActual);
 
-        // Activar todas las aguas de la nueva zona
         if (zonaActual.aguas != null)
         {
             foreach (var agua in zonaActual.aguas)
@@ -124,8 +115,6 @@ public class CheckpointManager : MonoBehaviour
 
         GuardarEstadoActualBotones();
 
-        // Notifica cambio de zona
-        OnZonaCambiada?.Invoke(zonaActual.nombreZona);
     }
 
     private void DetenerTodasLasAguas()
@@ -149,9 +138,28 @@ public class CheckpointManager : MonoBehaviour
         currentSpawnPoint = newSpawnPosition;
         checkpointsAlcanzados++;
 
-        // Notifica incremento de checkpoints
         OnCheckpointAlcanzado?.Invoke(checkpointsAlcanzados);
 
+        RefrescarBotones();
+        GuardarEstadoActualBotones();
+    }
+
+    public void SetCheckpoint(Vector3 newSpawnPosition, float waterLevelForThisCheckpoint, ZonaInundacion nuevaZona)
+    {
+        currentSpawnPoint = newSpawnPosition;
+        checkpointsAlcanzados++;
+
+        if (nuevaZona.EsValida() && zonaActual.nombreZona != nuevaZona.nombreZona)
+        {
+            zonaActual = nuevaZona;
+            if (!zonasJugadas.Contains(nuevaZona))
+            {
+                zonasJugadas.Push(nuevaZona);
+            }
+            OnZonaCambiada?.Invoke(zonaActual.nombreZona);
+        }
+
+        OnCheckpointAlcanzado?.Invoke(checkpointsAlcanzados);
         RefrescarBotones();
         GuardarEstadoActualBotones();
     }
@@ -168,7 +176,6 @@ public class CheckpointManager : MonoBehaviour
         {
             if (boton != null)
             {
-                //Dictionary
                 estadosBotonesGuardados[boton] = boton.ObtenerEstado();
             }
         }
@@ -187,24 +194,26 @@ public class CheckpointManager : MonoBehaviour
         muertes++;
         juegoTerminado = false;
 
-        // Notifica incremento de muertes
-        OnMuertesCambiadas?.Invoke(muertes);
+        // Mover jugador a la coordenada exacta del último checkpoint guardado
+        if (currentSpawnPoint != Vector3.zero)
+        {
+            CharacterController cc = player.GetComponent<CharacterController>();
+            if (cc != null) cc.enabled = false;
+            player.position = currentSpawnPoint;
+            if (cc != null) cc.enabled = true;
+        }
+        else if (zonasJugadas.Count > 0 && zonasJugadas.Peek().puntoEntrada != null)
+        {
+            CharacterController cc = player.GetComponent<CharacterController>();
+            if (cc != null) cc.enabled = false;
+            player.position = zonasJugadas.Peek().puntoEntrada.position;
+            if (cc != null) cc.enabled = true;
+        }
 
-        // Usar la última zona del Stack para respawn
+        // Resetear todas las aguas de la zona actual
         if (zonasJugadas.Count > 0)
         {
             ZonaInundacion zonaRespawn = zonasJugadas.Peek();
-
-            // Mover jugador al punto de entrada de la zona
-            if (zonaRespawn.puntoEntrada != null)
-            {
-                CharacterController cc = player.GetComponent<CharacterController>();
-                if (cc != null) cc.enabled = false;
-                player.position = zonaRespawn.puntoEntrada.position;
-                if (cc != null) cc.enabled = true;
-            }
-
-            // Resetear todas las aguas de la zona a su altura inicial
             if (zonaRespawn.aguas != null)
             {
                 foreach (var agua in zonaRespawn.aguas)
