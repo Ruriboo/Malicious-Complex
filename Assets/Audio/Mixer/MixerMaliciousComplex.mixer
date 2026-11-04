@@ -23,6 +23,7 @@ AudioMixerSnapshotController:
     eecf9f8c31e373c4f8ac38d49634c3a9: -14.816608
     cbe80f5dbdd6a4349ab0d2420fc335ba: 2.05
     98fbfa7e97bd2474a9c0b229c6cce814: 529
+    1eda09ff1e56faa43ba3ddf9f975227d: 14
   m_TransitionOverrides: {}
 --- !u!243 &-6157369696198327121
 AudioMixerGroupController:
@@ -90,6 +91,25 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!243 &-2927471854910868190
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Amb_Laboratorio
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: aa9ec42bb6d09404b86e91c9f8b8f3a8
+  m_Children: []
+  m_Volume: 1eda09ff1e56faa43ba3ddf9f975227d
+  m_Pitch: 7750566fe96ad444e907b4b7613b75bd
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -498179792737186810}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &-2028488532302243060
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -128,6 +148,20 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-498179792737186810
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 1c4cffe6b8eb69a44a15eba0a73f8934
+  m_EffectName: Attenuation
+  m_MixLevel: c52d0ae77c403394eabe1706bf14f41f
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -152,9 +186,10 @@ AudioMixerController:
     - f6b650762b21f394eaa34df11a3e9713
     - bdb4f695b5ad86642b6214e3ce4ffda5
     - 55cb57bb32ead1642be3fb96ff11d511
+    - aa9ec42bb6d09404b86e91c9f8b8f3a8
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: 24500006}
+  m_TargetSnapshot: {fileID: -8092083396032674387}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -207,6 +242,7 @@ AudioMixerSnapshotController:
     1fd7aed59f789c24683c6d9407ae5749: 22000
     636b7d162caf09a4e9430fcb07565dde: 0
     9a5bff7b0705459448ebe5805d0c0036: 22000
+    1eda09ff1e56faa43ba3ddf9f975227d: -8
   m_TransitionOverrides: {}
 --- !u!243 &369598941316255214
 AudioMixerGroupController:
@@ -324,7 +360,8 @@ AudioMixerGroupController:
   m_Name: Ambiente
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: bdb4f695b5ad86642b6214e3ce4ffda5
-  m_Children: []
+  m_Children:
+  - {fileID: -2927471854910868190}
   m_Volume: 04f5acd527077e2499d6bd1e523d9cca
   m_Pitch: e528f70c55877894085b26e648512acf
   m_Send: 00000000000000000000000000000000
