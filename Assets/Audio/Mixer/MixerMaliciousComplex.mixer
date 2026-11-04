@@ -61,6 +61,22 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-39193318811104350
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: ef4e390dca516744e8b13eba9d6da75b
+  m_EffectName: Lowpass Simple
+  m_MixLevel: 9b3d1ecfe68bd6f46b699c892ca12551
+  m_Parameters:
+  - m_ParameterName: Cutoff freq
+    m_GUID: aef64453d17abb14fb490d3a0d031120
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -76,7 +92,19 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 04f5acd527077e2499d6bd1e523d9cca
+    name: AmbienteVolume
+  - guid: 4268431b4c04f7741ad0a3449aab11ca
+    name: MasterVolume
+  - guid: eecf9f8c31e373c4f8ac38d49634c3a9
+    name: MusicVolume
+  - guid: aef64453d17abb14fb490d3a0d031120
+    name: MusicLowpassCutoff
+  - guid: ab8fa9d654eac284881b09bf3d584a93
+    name: SFXVolume
+  - guid: 8c559c7186aad0948924b76c03b13fd1
+    name: VozVolume
   m_AudioMixerGroupViews:
   - guids:
     - 79f1bfd199c2b5e4e8f0b04d4ec04fba
@@ -134,7 +162,7 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: a075916ce30037b43ae5afde0464dfea
   m_FloatValues:
-    04f5acd527077e2499d6bd1e523d9cca: -56.19068
+    4268431b4c04f7741ad0a3449aab11ca: 0.092740804
   m_TransitionOverrides: {}
 --- !u!243 &369598941316255214
 AudioMixerGroupController:
@@ -184,6 +212,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: -2026383073356128666}
+  - {fileID: -39193318811104350}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0

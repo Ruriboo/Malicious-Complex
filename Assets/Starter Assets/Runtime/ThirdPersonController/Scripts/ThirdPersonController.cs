@@ -15,6 +15,7 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+        public bool EnAgua { get; set; }
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -496,17 +497,39 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
-        private void OnFootstep(AnimationEvent animationEvent)
+
+
+
+
+        public void OnFootstep(AnimationEvent animationEvent)
         {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            if (animationEvent.animatorClipInfo.weight < 0.5f)
+                return;
+
+            if (EnAgua)
             {
-                if (FootstepAudioClips.Length > 0)
-                {
-                    var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
-                }
+                SendMessage(
+                    "ReproducirPasoAnimacion",
+                    SendMessageOptions.DontRequireReceiver
+                );
+                return;
+            }
+
+            if (FootstepAudioClips != null &&
+                FootstepAudioClips.Length > 0)
+            {
+                int index = Random.Range(0, FootstepAudioClips.Length);
+
+                AudioSource.PlayClipAtPoint(
+                    FootstepAudioClips[index],
+                    transform.TransformPoint(_controller.center),
+                    FootstepAudioVolume
+                );
             }
         }
+
+
+
 
         private void OnLand(AnimationEvent animationEvent)
         {
