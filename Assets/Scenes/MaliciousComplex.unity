@@ -53760,6 +53760,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1605384216851744945, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: AvoidObstacles.CollisionFilter.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1622538811875736630, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_Layer
       value: 7
