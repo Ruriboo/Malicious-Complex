@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using UnityEngine.Audio;
 public class Oxigeno : MonoBehaviour
 {
     //timer es un cronometro que cuenta el tiempo transcurrido.
@@ -11,6 +11,8 @@ public class Oxigeno : MonoBehaviour
     [SerializeField] private LoseWinCondition loseWinCondition; //Referencia al script LoseWinCondition para cargar la escena de derrota
     [SerializeField] private Image barraOxigeno;
     [SerializeField] private GameObject uiOxigeno;
+    [SerializeField] private AudioMixerSnapshot snapshotNormal;
+    [SerializeField] private AudioMixerSnapshot snapshotBajoAgua;
 
     private int oxigenoActual;
     private bool Isdead = false;
@@ -75,6 +77,7 @@ public class Oxigeno : MonoBehaviour
         if (enAgua) return;
         enAgua = true;
         uiOxigeno.SetActive(true);
+        snapshotBajoAgua.TransitionTo(0.3f);
     }
 
     public void SalirAgua()
@@ -83,5 +86,6 @@ public class Oxigeno : MonoBehaviour
         enAgua = false;
         uiOxigeno.SetActive(false);
         rellenarOxigeno();
+        snapshotNormal.TransitionTo(0.5f);
     }
 }
