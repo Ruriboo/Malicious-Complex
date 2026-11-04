@@ -34,6 +34,9 @@ public class WaterAudio : MonoBehaviour
     public void EstablecerBajoElAgua(bool estado)
     {
         bajoElAgua = estado;
+        
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetBajoElAgua(estado); 
     }
     public void ReproducirPasoAnimacion()
     {
