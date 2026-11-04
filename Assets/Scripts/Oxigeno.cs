@@ -22,10 +22,14 @@ public class Oxigeno : MonoBehaviour
     public int OxigenoMax => oxigenoMax;
     public float PorcentajeOxigeno => oxigenoMax > 0 ? (float)oxigenoActual / oxigenoMax : 0f;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip sfxOxigeno;
+
     void Start()
     {
         oxigenoActual = oxigenoMax;
         uiOxigeno.SetActive(false);
+        if (audioSource == null) audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -40,7 +44,7 @@ public class Oxigeno : MonoBehaviour
         {
             uiOxigeno.SetActive(false);
         }
-
+        SFXOxigeno();
     }
 
     //la funcion reducirOxigeno reduce la cantidad de oxigeno actual una cantidad ingresada.
@@ -58,6 +62,7 @@ public class Oxigeno : MonoBehaviour
         {
             Debug.Log("Moriste");
             Isdead = true;
+            if (audioSource != null && audioSource.isPlaying) audioSource.Stop();
 
             if (loseWinCondition != null)
                 loseWinCondition.CargarLoseScene();
@@ -87,5 +92,29 @@ public class Oxigeno : MonoBehaviour
         uiOxigeno.SetActive(false);
         rellenarOxigeno();
         snapshotNormal.TransitionTo(0.5f);
+        if (audioSource != null && audioSource.isPlaying) audioSource.Stop();
+    }
+
+    private void SFXOxigeno()
+    {
+        if (audioSource == null || sfxOxigeno == null) return;
+
+        bool pocoOxigeno = enAgua && !Isdead && oxigenoActual > 0 && PorcentajeOxigeno <= 0.25f;
+
+        if (pocoOxigeno)
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = sfxOxigeno;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            if (audioSource.isPlaying && audioSource.clip == sfxOxigeno)
+            {
+                audioSource.Stop();
+            }
+        }
     }
 }

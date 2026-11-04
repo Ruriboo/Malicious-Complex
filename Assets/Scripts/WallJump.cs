@@ -11,6 +11,8 @@ public class WallJump : MonoBehaviour
     [SerializeField] private float wallCheckDistance = 1.5f;
     [SerializeField] private float minJumpHeight = 1f;
     [SerializeField] private float footCheckRadius = 0.35f;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] sfxWalljump;
 
     private RaycastHit wallHit;
     private bool hasWall;
@@ -166,16 +168,11 @@ public class WallJump : MonoBehaviour
 
     private void PerformWallJump()
     {
+        SFXWalljump();
         controller.wallJumping = true;
-
         controller.SetVerticalVelocity(wallJumpUpForce);
 
-        characterController.Move(
-            wallHit.normal *
-            wallJumpForce *
-            Time.deltaTime *
-            2f
-        );
+        characterController.Move(wallHit.normal * wallJumpForce * Time.deltaTime * 2f);
 
         if (animator)
             animator.SetTrigger("Walljump");
@@ -183,12 +180,19 @@ public class WallJump : MonoBehaviour
         bufferCounter = 0f;
         canWallJump = false;
         wallJumpTimer = 0f;
-
-        StopWallJump();
+        Invoke(nameof(StopWallJump), 0.3f);
     }
 
     private void StopWallJump()
     {
         controller.wallJumping = false;
+    }
+
+    private void SFXWalljump()
+    {
+        if (audioSource == null || sfxWalljump.Length == 0) return;
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        int index = Random.Range(0, sfxWalljump.Length);
+        audioSource.PlayOneShot(sfxWalljump[index]);
     }
 }

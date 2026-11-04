@@ -13,6 +13,11 @@ public class PuertaPortal : ObjetoInteractuable
     [Header("Interacción Directa")]
     [SerializeField] private bool abrirSinBoton = true;
 
+    [Header("SFX")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip sfxAbrir;
+    [SerializeField] private AudioClip sfxCerrar; 
+
     private bool estaAbierta = false;
     private Vector3 posIzquierdaCerrada, posIzquierdaAbierta;
     private Vector3 posDerechaCerrada, posDerechaAbierta;
@@ -24,32 +29,64 @@ public class PuertaPortal : ObjetoInteractuable
             posIzquierdaCerrada = hojaIzquierda.localPosition;
             posIzquierdaAbierta = posIzquierdaCerrada + new Vector3(0, 0, distanciaApertura);
         }
-
         if (hojaDerecha != null)
         {
             posDerechaCerrada = hojaDerecha.localPosition;
             posDerechaAbierta = posDerechaCerrada - new Vector3(0, 0, distanciaApertura);
         }
+        if (audioSource == null) audioSource = GetComponent<AudioSource>();
     }
 
     protected override void Update()
     {
-        if (abrirSinBoton)
-        {
-            base.Update();
-        }
+        if (abrirSinBoton) base.Update();
 
         Vector3 targetIzquierda = estaAbierta ? posIzquierdaAbierta : posIzquierdaCerrada;
         Vector3 targetDerecha = estaAbierta ? posDerechaAbierta : posDerechaCerrada;
 
         if (hojaIzquierda != null)
             hojaIzquierda.localPosition = Vector3.Lerp(hojaIzquierda.localPosition, targetIzquierda, Time.deltaTime * velocidadApertura);
-
         if (hojaDerecha != null)
             hojaDerecha.localPosition = Vector3.Lerp(hojaDerecha.localPosition, targetDerecha, Time.deltaTime * velocidadApertura);
     }
 
-    public override void Interactuar() => estaAbierta = !estaAbierta;
-    public void AbrirPuertacheck() => estaAbierta = true;
-    public void CerrarPuertacheck() => estaAbierta = false;
+    public override void Interactuar()
+    {
+        estaAbierta = !estaAbierta;
+
+        if (estaAbierta)
+            SFXAbrir();
+        else
+            SFXCerrar();
+    }
+
+    public void AbrirPuertacheck()
+    {
+        if (!estaAbierta)
+            SFXAbrir();
+
+        estaAbierta = true;
+    }
+
+    public void CerrarPuertacheck()
+    {
+        if (estaAbierta)
+            SFXCerrar();
+
+        estaAbierta = false;
+    }
+
+    private void SFXAbrir()
+    {
+        if (audioSource == null || sfxAbrir == null) return;
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.PlayOneShot(sfxAbrir);
+    }
+
+    private void SFXCerrar()
+    {
+        if (audioSource == null || sfxCerrar == null) return;
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.PlayOneShot(sfxCerrar);
+    }
 }
