@@ -26,7 +26,6 @@ public class Zipline : MonoBehaviour
     {
         if (!zipping || localZip == null) return;
 
-
         Vector3 dir = (targetZip.ZipTransform.position - ZipTransform.position).normalized;
         localZip.transform.position += dir * zipSpeed * Time.deltaTime;
 
@@ -40,23 +39,32 @@ public class Zipline : MonoBehaviour
     {
         if (zipping) return;
 
-
         localZip = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         localZip.transform.position = ZipTransform.position;
         localZip.transform.localScale = Vector3.one * zipScale;
         localZip.GetComponent<Collider>().isTrigger = true;
         localZip.GetComponent<MeshRenderer>().enabled = false;
 
-
         characterController = player.GetComponent<CharacterController>();
         controller = player.GetComponent<ThirdPersonController>();
+        animator = player.GetComponent<Animator>();
+        animIDZiplining = Animator.StringToHash("IsZiplining");
+        var inputs = player.GetComponent<StarterAssetsInputs>();
+        if (inputs) inputs.jump = false;
 
-        if (controller) controller.enabled = false;
+        if (controller)
+        {
+            controller.SetVerticalVelocity(-2f);
+            controller.enabled = false;
+        }
         if (characterController) characterController.enabled = false;
 
         player.transform.parent = localZip.transform;
         player.transform.localPosition = new Vector3(0, -2f, 0);
         player.transform.localRotation = Quaternion.identity;
+
+        if (animator)
+            animator.SetBool(animIDZiplining, true);
 
         zipping = true;
     }
@@ -67,16 +75,24 @@ public class Zipline : MonoBehaviour
 
         GameObject player = localZip.transform.GetChild(0).gameObject;
         player.transform.parent = null;
-
-
         player.transform.position = targetZip.ZipTransform.position;
 
         if (characterController) characterController.enabled = true;
-        if (controller) controller.enabled = true;
+
+        var inputs = player.GetComponent<StarterAssetsInputs>();
+        if (inputs) inputs.jump = false;
+
+        if (controller)
+        {
+            controller.enabled = true;
+            controller.SetVerticalVelocity(-2f);
+        }
+
+        if (animator)
+            animator.SetBool(animIDZiplining, false);
 
         Destroy(localZip);
         localZip = null;
         zipping = false;
-
     }
 }

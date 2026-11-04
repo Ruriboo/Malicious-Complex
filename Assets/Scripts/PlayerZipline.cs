@@ -1,10 +1,21 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using StarterAssets;
 
 public class PlayerZipline : MonoBehaviour
 {
     [SerializeField] private float checkOffset = 1f;
     [SerializeField] private float checkRadius = 2f;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip sfxZip;
+
+    private StarterAssetsInputs inputs;
+
+    private void Start()
+    {
+        if (audioSource == null) audioSource = GetComponent<AudioSource>();
+        inputs = GetComponent<StarterAssetsInputs>();
+    }
 
     private void Update()
     {
@@ -22,8 +33,18 @@ public class PlayerZipline : MonoBehaviour
             if (hit.collider.CompareTag("Zipline"))
             {
                 hit.collider.GetComponent<Zipline>().StartZipline(gameObject);
+
+                if (inputs) inputs.jump = false;
+
                 break;
             }
         }
+    }
+
+    private void SFXZipline()
+    {
+        if (audioSource == null || sfxZip == null) return;
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.PlayOneShot(sfxZip);
     }
 }

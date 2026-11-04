@@ -7,8 +7,9 @@ public class WallJump : MonoBehaviour
 {
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
-    [SerializeField] private float wallJumpForce = 5f;
-    [SerializeField] private float wallCheckDistance = 1f;
+    [SerializeField] private float wallJumpForce = 8f;
+    [SerializeField] private float wallJumpUpForce = 8f;
+    [SerializeField] private float wallCheckDistance = 1.5f;
     [SerializeField] private float minJumpHeight = 1f;
 
     private RaycastHit leftWallHit;
