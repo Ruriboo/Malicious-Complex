@@ -731,7 +731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
       propertyPath: rolloffMode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
       propertyPath: OutputAudioMixerGroup
@@ -20493,7 +20493,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -2927471854910868190, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 8267aa6ea43cea5419c3fac5ff73a089, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.053
   m_Pitch: 0.55
   Loop: 1
@@ -28052,7 +28052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
       propertyPath: rolloffMode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
       propertyPath: OutputAudioMixerGroup
@@ -28060,7 +28060,7 @@ PrefabInstance:
       objectReference: {fileID: 9013226626530380167, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
     - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
       propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].time
-      value: 0.014282227
+      value: 0.042690277
       objectReference: {fileID: 0}
     - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
       propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].time
@@ -28068,7 +28068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
       propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].value
-      value: 0.99578476
+      value: 0.99996567
       objectReference: {fileID: 0}
     - target: {fileID: 4328718065947484916, guid: 0ae65463185eb1f459a4ef766d83e67e, type: 3}
       propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].value
@@ -33806,7 +33806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3689040521506470642, guid: 11044bcf87ade294b87e301d401df836, type: 3}
       propertyPath: rolloffMode
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3689040521506470642, guid: 11044bcf87ade294b87e301d401df836, type: 3}
       propertyPath: OutputAudioMixerGroup
