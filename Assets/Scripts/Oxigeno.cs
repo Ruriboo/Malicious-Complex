@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using UnityEngine.Audio;
 public class Oxigeno : MonoBehaviour
 {
     //timer es un cronometro que cuenta el tiempo transcurrido.
@@ -11,6 +11,8 @@ public class Oxigeno : MonoBehaviour
     [SerializeField] private LoseWinCondition loseWinCondition; //Referencia al script LoseWinCondition para cargar la escena de derrota
     [SerializeField] private Image barraOxigeno;
     [SerializeField] private GameObject uiOxigeno;
+    [SerializeField] private AudioMixerSnapshot snapshotNormal;
+    [SerializeField] private AudioMixerSnapshot snapshotBajoAgua;
 
     private int oxigenoActual;
     private bool Isdead = false;
@@ -20,10 +22,14 @@ public class Oxigeno : MonoBehaviour
     public int OxigenoMax => oxigenoMax;
     public float PorcentajeOxigeno => oxigenoMax > 0 ? (float)oxigenoActual / oxigenoMax : 0f;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip sfxOxigeno;
+
     void Start()
     {
         oxigenoActual = oxigenoMax;
         uiOxigeno.SetActive(false);
+        if (audioSource == null) audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -38,7 +44,7 @@ public class Oxigeno : MonoBehaviour
         {
             uiOxigeno.SetActive(false);
         }
-
+        SFXOxigeno();
     }
 
     //la funcion reducirOxigeno reduce la cantidad de oxigeno actual una cantidad ingresada.
@@ -56,6 +62,7 @@ public class Oxigeno : MonoBehaviour
         {
             Debug.Log("Moriste");
             Isdead = true;
+            if (audioSource != null && audioSource.isPlaying) audioSource.Stop();
 
             if (loseWinCondition != null)
                 loseWinCondition.CargarLoseScene();
@@ -75,6 +82,7 @@ public class Oxigeno : MonoBehaviour
         if (enAgua) return;
         enAgua = true;
         uiOxigeno.SetActive(true);
+        snapshotBajoAgua.TransitionTo(0.3f);
     }
 
     public void SalirAgua()
@@ -83,5 +91,30 @@ public class Oxigeno : MonoBehaviour
         enAgua = false;
         uiOxigeno.SetActive(false);
         rellenarOxigeno();
+        snapshotNormal.TransitionTo(0.5f);
+        if (audioSource != null && audioSource.isPlaying) audioSource.Stop();
+    }
+
+    private void SFXOxigeno()
+    {
+        if (audioSource == null || sfxOxigeno == null) return;
+
+        bool pocoOxigeno = enAgua && !Isdead && oxigenoActual > 0 && PorcentajeOxigeno <= 0.25f;
+
+        if (pocoOxigeno)
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = sfxOxigeno;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            if (audioSource.isPlaying && audioSource.clip == sfxOxigeno)
+            {
+                audioSource.Stop();
+            }
+        }
     }
 }
