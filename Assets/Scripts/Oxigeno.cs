@@ -17,6 +17,8 @@ public class Oxigeno : MonoBehaviour
     private int oxigenoActual;
     private bool Isdead = false;
     private bool enAgua = false;
+    [SerializeField] private float duracionBarraGolpe = 2.5f; // segundos que se ve la barra tras un golpe
+    private float mostrarBarraHasta;
 
     public int OxigenoActual => oxigenoActual;
     public int OxigenoMax => oxigenoMax;
@@ -35,7 +37,8 @@ public class Oxigeno : MonoBehaviour
     void Update()
     {
         timer = timer + Time.deltaTime;
-        if (enAgua)
+        // Bajo el agua, o un rato despues de recibir un golpe (para ver cuanto oxigeno queda).
+        if (enAgua || Time.time < mostrarBarraHasta)
         {
             uiOxigeno.SetActive(true);
             barraOxigeno.fillAmount = PorcentajeOxigeno;
@@ -60,16 +63,42 @@ public class Oxigeno : MonoBehaviour
 
         if (oxigenoActual <= 0)
         {
-            Debug.Log("Moriste");
-            Isdead = true;
-            if (audioSource != null && audioSource.isPlaying) audioSource.Stop();
-
-            if (loseWinCondition != null)
-                loseWinCondition.CargarLoseScene();
-            else
-                Debug.LogError("[Oxigeno] Falta asignar LoseWinCondition en el Inspector.");
+            Morir();
         }
     }
+
+    // Si un golpe de ese porcentaje dejaria al jugador sin oxigeno.
+    public bool GolpeSeriaLetal(float porcentaje) => oxigenoActual - Mathf.CeilToInt(oxigenoMax * porcentaje) <= 0;
+
+    // Golpe de enemigo: quita un porcentaje del oxigeno maximo, sin el cooldown del agua.
+    // Si lo deja sin oxigeno, muere.
+    public void RecibirGolpe(float porcentaje)
+    {
+        if (Isdead) return;
+
+        oxigenoActual = Mathf.Max(0, oxigenoActual - Mathf.CeilToInt(oxigenoMax * porcentaje));
+        mostrarBarraHasta = Time.time + duracionBarraGolpe;
+
+        if (oxigenoActual <= 0) Morir();
+    }
+
+    // Muerte inmediata del jugador (sin oxigeno o atrapado por un enemigo).
+    public void Morir()
+    {
+        if (Isdead) return;
+
+        Debug.Log("Moriste");
+        Isdead = true;
+        oxigenoActual = 0;
+        if (audioSource != null && audioSource.isPlaying) audioSource.Stop();
+
+        if (loseWinCondition != null)
+            loseWinCondition.CargarLoseScene();
+        else
+            Debug.LogError("[Oxigeno] Falta asignar LoseWinCondition en el Inspector.");
+    }
+
+    public bool EstaMuerto => Isdead;
 
     public void rellenarOxigeno()
     {

@@ -83,6 +83,10 @@ namespace StarterAssets
         public bool wallJumping;
         public MovementState state;
 
+        // NUEVO: Referencia al grupo del Mixer desde el Inspector
+        public UnityEngine.Audio.AudioMixerGroup sfxMixerGroup;
+        private AudioSource _audioSource;
+
         public enum MovementState
         {
             walljumping
@@ -192,6 +196,13 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            // NUEVO: Obtenemos el AudioSource y lo asignamos al Mixer
+            _audioSource = GetComponent<AudioSource>();
+            if (_audioSource == null) _audioSource = gameObject.AddComponent<AudioSource>();
+            
+            if (sfxMixerGroup != null)
+                _audioSource.outputAudioMixerGroup = sfxMixerGroup;
         }
 
         private void Update()
@@ -497,10 +508,6 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
-
-
-
-
         public void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight < 0.5f)
@@ -520,22 +527,25 @@ namespace StarterAssets
             {
                 int index = Random.Range(0, FootstepAudioClips.Length);
 
-                AudioSource.PlayClipAtPoint(
-                    FootstepAudioClips[index],
-                    transform.TransformPoint(_controller.center),
-                    FootstepAudioVolume
-                );
+                // MODIFICADO: Usamos _audioSource con variación de pitch
+                if (_audioSource != null)
+                {
+                    _audioSource.pitch = Random.Range(0.9f, 1.1f);
+                    _audioSource.PlayOneShot(FootstepAudioClips[index], FootstepAudioVolume);
+                }
             }
         }
-
-
-
 
         private void OnLand(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                // MODIFICADO: Usamos _audioSource
+                if (_audioSource != null)
+                {
+                    _audioSource.pitch = 1f;
+                    _audioSource.PlayOneShot(LandingAudioClip, FootstepAudioVolume);
+                }
             }
         }
 

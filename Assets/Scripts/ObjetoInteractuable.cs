@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public abstract class ObjetoInteractuable : MonoBehaviour, IInteractuable
 {
@@ -6,7 +7,7 @@ public abstract class ObjetoInteractuable : MonoBehaviour, IInteractuable
 
     protected virtual void Update()
     {
-        if (jugadorEnRango && Input.GetKeyDown(KeyCode.E))
+        if (jugadorEnRango && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             Interactuar();
         }
