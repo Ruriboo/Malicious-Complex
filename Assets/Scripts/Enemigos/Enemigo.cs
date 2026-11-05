@@ -100,8 +100,21 @@ public class Enemigo : MonoBehaviour
         if (zonaAtaque == null) zonaAtaque = GetComponentInChildren<ZonaAtaqueEnemigo>();
     }
 
-    private void OnEnable() => CheckpointManager.OnJugadorRespawn += Reiniciar;
-    private void OnDisable() => CheckpointManager.OnJugadorRespawn -= Reiniciar;
+    // Registro de enemigos activos (lo usa LuzFluorescente: los tubos parpadean cerca de un monstruo).
+    private static readonly System.Collections.Generic.List<Enemigo> activos = new();
+    public static System.Collections.Generic.IReadOnlyList<Enemigo> Activos => activos;
+
+    private void OnEnable()
+    {
+        CheckpointManager.OnJugadorRespawn += Reiniciar;
+        if (!activos.Contains(this)) activos.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        CheckpointManager.OnJugadorRespawn -= Reiniciar;
+        activos.Remove(this);
+    }
 
     private void Start()
     {

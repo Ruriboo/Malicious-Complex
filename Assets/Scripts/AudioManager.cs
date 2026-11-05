@@ -9,35 +9,24 @@ public class AudioManager : MonoBehaviour
     [Header("Mixer Único")]
     [SerializeField] private AudioMixer mainMixer;
 
-    [Header("Grupos del Mixer")]
+    [Header("Grupos del Mixer (Asignar en Inspector)")]
     [SerializeField] private AudioMixerGroup musicGroup;
     [SerializeField] private AudioMixerGroup sfxGroup;
     [SerializeField] private AudioMixerGroup ambienteGroup;
     [SerializeField] private AudioMixerGroup vozGroup;
 
-    [Header("Snapshots (Bloque B)")]
-    [SerializeField] private AudioMixerSnapshot snapshotNormal;
-    [SerializeField] private AudioMixerSnapshot snapshotBajoElAgua;
-    [SerializeField] private AudioMixerSnapshot snapshotVictoria;
-    [SerializeField] private AudioMixerSnapshot snapshotDerrota;
-
-    [Header("Parámetros para Ducking (Bloque F)")]
+    [Header("Parámetros Expuestos")]
     [SerializeField] private string musicVolumeParam = "MusicVolume";
-    [SerializeField] private float musicVolumeNormal = -12f;
-    [SerializeField] private float musicVolumeDuck = -24f;
-    [SerializeField] private float duckFadeTime = 0.4f;
+    [SerializeField] private string musicLowpassParam = "MusicLowpassCutoff";
+    [SerializeField] private string sfxLowpassParam = "SFXLowpassCutoff";
 
-    [Header("Fuentes de Música")]
-    [SerializeField] private AudioSource menuMusicSource;
-    [SerializeField] private AudioSource gameMusicSource;
+    [Header("Configuración de Ducking (Voz sobre Música)")]
+    [SerializeField] private float musicVolumeNormal = -12f; 
+    [SerializeField] private float musicVolumeDuck = -24f;   
+    [SerializeField] private float duckFadeTime = 0.4f;
 
     private int vocesSonando;
     private Coroutine duckRoutine;
-
-    public AudioMixerGroup Music => musicGroup;
-    public AudioMixerGroup SFX => sfxGroup;
-    public AudioMixerGroup Ambiente => ambienteGroup;
-    public AudioMixerGroup Voz => vozGroup;
 
     private void Awake()
     {
@@ -46,44 +35,12 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        PlayMenuMusic();
-    }
+    public AudioMixerGroup Music => musicGroup;
+    public AudioMixerGroup SFX => sfxGroup;
+    public AudioMixerGroup Ambiente => ambienteGroup;
+    public AudioMixerGroup Voz => vozGroup;
 
-    // --- CONTROL DE MÚSICA ---
-    public void PlayMenuMusic()
-    {
-        if (gameMusicSource != null) gameMusicSource.Stop();
-        if (menuMusicSource != null && !menuMusicSource.isPlaying) menuMusicSource.Play();
-    }
-
-    public void PlayGameMusic()
-    {
-        if (menuMusicSource != null) menuMusicSource.Stop();
-        if (gameMusicSource != null && !gameMusicSource.isPlaying) gameMusicSource.Play();
-    }
-
-    // ---Transiciones de Música (Snapshots) ---
-    public void SetBajoElAgua(bool estado)
-    {
-        if (estado) snapshotBajoElAgua.TransitionTo(0.5f);
-        else snapshotNormal.TransitionTo(0.5f);
-    }
-
-    public void TransitionToVictoria()
-    {
-        if (snapshotVictoria != null) snapshotVictoria.TransitionTo(2.0f);
-        else snapshotNormal.TransitionTo(2.0f); 
-    }
-
-    public void TransitionToDerrota()
-    {
-        if (snapshotDerrota != null) snapshotDerrota.TransitionTo(1.0f);
-        else snapshotNormal.TransitionTo(1.0f);
-    }
-
-    // --- Ducking ---
+    // --- DUCKING (Bajar música cuando hay voz) ---
     public void EmpezarVoz()
     {
         vocesSonando++;
@@ -112,5 +69,48 @@ public class AudioManager : MonoBehaviour
             yield return null;
         }
         mainMixer.SetFloat(musicVolumeParam, targetDb);
+    }
+
+    // --- EFECTO BAJO EL AGUA (Lowpass) ---
+    public void SetBajoElAgua(bool estado)
+    {
+        float objetivo = estado ? 500f : 22000f;
+        
+        StopCoroutine(nameof(FadeCutoff));
+
+        StartCoroutine(FadeCutoff(musicLowpassParam, objetivo));
+        StartCoroutine(FadeCutoff(sfxLowpassParam, objetivo));
+    }
+
+    private IEnumerator FadeCutoff(string parametro, float objetivo)
+    {
+        mainMixer.GetFloat(parametro, out float actual);
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.unscaledDeltaTime / 0.3f;
+            mainMixer.SetFloat(parametro, Mathf.Lerp(actual, objetivo, t));
+            yield return null;
+        }
+        mainMixer.SetFloat(parametro, objetivo);
+    }
+    
+    // --- FADE GENÉRICO PARA CUALQUIER AUDIO ---
+    public void FadeSource(AudioSource source, float targetVolume, float duration)
+    {
+        StartCoroutine(FadeSourceRoutine(source, targetVolume, duration));
+    }
+
+    private IEnumerator FadeSourceRoutine(AudioSource source, float target, float dur)
+    {
+        float start = source.volume;
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.unscaledDeltaTime / dur;
+            source.volume = Mathf.Lerp(start, target, t);
+            yield return null;
+        }
+        source.volume = target;
     }
 }

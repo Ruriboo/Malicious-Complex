@@ -20,6 +20,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip sfxUI;
+    [SerializeField, Range(0f, 1f)] private float volumenUI = 0.45f;
 
     private bool paused = false;
 
@@ -148,6 +149,6 @@ public class MainMenuController : MonoBehaviour
     public void SFXUi()
     {
         if (audioSource == null || sfxUI == null) return;
-        audioSource.PlayOneShot(sfxUI);
+        audioSource.PlayOneShot(sfxUI, volumenUI);
     }
 }
