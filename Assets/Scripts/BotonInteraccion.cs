@@ -10,6 +10,7 @@ public class BotonPuerta : ObjetoInteractuable
     private bool estaActivado = false;
     private MeshRenderer rendererBoton; 
     private Light luzBoton;
+    private ReturnControl returnControl;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip sfxBoton;
     [SerializeField, Range(0f, 1f)] private float volumenBoton = 0.35f;
@@ -19,6 +20,7 @@ public class BotonPuerta : ObjetoInteractuable
         luzBoton = GetComponentInChildren<Light>(true);
         
         rendererBoton = GetComponent<MeshRenderer>();
+        returnControl = GetComponent<ReturnControl>();
 
         if (objetoObjetivo != null)
         {
@@ -47,7 +49,7 @@ public class BotonPuerta : ObjetoInteractuable
         if (objetivoInteractuable != null)
         {
             objetivoInteractuable.Interactuar();
-            
+            if (returnControl != null) returnControl.ResetCamera();
             estaActivado = !estaActivado;
             AplicarColor();
             SFXBoton();

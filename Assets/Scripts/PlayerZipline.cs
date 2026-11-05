@@ -29,16 +29,17 @@ public class PlayerZipline : MonoBehaviour
             if (hit.collider.CompareTag("Zipline"))
             {
                 SFXZipline();
-                hit.collider.GetComponent<Zipline>().StartZipline(gameObject);
+                hit.collider.GetComponent<Zipline>().StartZipline(gameObject, audioSource);
                 break;
             }
-            
         }
     }
+
     private void SFXZipline()
     {
         if (audioSource == null || sfxZip == null) return;
+        audioSource.clip = sfxZip;
         audioSource.pitch = Random.Range(0.9f, 1.1f);
-        audioSource.PlayOneShot(sfxZip);
+        audioSource.Play();
     }
 }

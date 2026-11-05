@@ -17,6 +17,7 @@ public class Zipline : MonoBehaviour
     private ThirdPersonController controller;
     private Animator animator;
     private int animIDZiplining;
+    private AudioSource audioSource;
 
     void Awake()
     {
@@ -28,7 +29,6 @@ public class Zipline : MonoBehaviour
     {
         if (!zipping || localZip == null) return;
 
-
         Vector3 dir = (targetZip.ZipTransform.position - ZipTransform.position).normalized;
         localZip.transform.position += dir * zipSpeed * Time.deltaTime;
 
@@ -38,17 +38,17 @@ public class Zipline : MonoBehaviour
         }
     }
 
-    public void StartZipline(GameObject player)
+    public void StartZipline(GameObject player, AudioSource audio)
     {
         if (zipping) return;
 
+        audioSource = audio;
 
         localZip = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         localZip.transform.position = ZipTransform.position;
         localZip.transform.localScale = Vector3.one * zipScale;
         localZip.GetComponent<Collider>().isTrigger = true;
         localZip.GetComponent<MeshRenderer>().enabled = false;
-
 
         characterController = player.GetComponent<CharacterController>();
         controller = player.GetComponent<ThirdPersonController>();
@@ -61,10 +61,9 @@ public class Zipline : MonoBehaviour
         player.transform.parent = localZip.transform;
         player.transform.localPosition = new Vector3(0, -10f, 0);
         player.transform.localRotation = Quaternion.identity;
-       
+
         if (animator)
             animator.SetBool(animIDZiplining, true);
-
 
         zipping = true;
     }
@@ -75,20 +74,16 @@ public class Zipline : MonoBehaviour
 
         GameObject player = localZip.transform.GetChild(0).gameObject;
         player.transform.parent = null;
-
-
         player.transform.position = targetZip.ZipTransform.position;
 
         if (characterController) characterController.enabled = true;
         if (controller) controller.enabled = true;
+        if (animator) animator.SetBool(animIDZiplining, false);
 
-        if (animator)
-            animator.SetBool(animIDZiplining, false);
-
+        if (audioSource != null) audioSource.Stop();
 
         Destroy(localZip);
         localZip = null;
         zipping = false;
-
     }
 }

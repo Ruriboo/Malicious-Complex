@@ -188,13 +188,15 @@ public class WallRun : MonoBehaviour
             animator.SetBool("IsWallRunning", false);
             animator.SetBool("IsWallRunningLeft", false);
         }
+        if (audioSource != null) audioSource.Stop();
     }
 
 
          private void SFXWallrun()
     {
         if (audioSource == null || sfxWallrun == null) return;
+        audioSource.clip = sfxWallrun;
         audioSource.pitch = Random.Range(0.9f, 1.1f);
-        audioSource.PlayOneShot(sfxWallrun);
+        audioSource.Play();
     }
 }
