@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 
 public class LoseWinCondition : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class LoseWinCondition : MonoBehaviour
         if (LosePanel != null) LosePanel.SetActive(false);
         audioSource = GetComponent<AudioSource>();
 
+        if (audioSource != null && AudioManager.Instance != null)
+            audioSource.outputAudioMixerGroup = AudioManager.Instance.SFX;
+
         if (checkpointManager == null)
         {
             checkpointManager = FindFirstObjectByType<CheckpointManager>();
@@ -38,16 +42,22 @@ public class LoseWinCondition : MonoBehaviour
     /// </summary>
     public void CargarWinScene()
     {
-
         if (WinPanel != null)
         {
             WinPanel.SetActive(true);
             ActualizarEstadisticas(winStatsText);
-            audioSource.clip = winAudioClip;
-            audioSource.Play();
+            
+            if (audioSource != null && winAudioClip != null)
+            {
+                audioSource.clip = winAudioClip;
+                audioSource.Play();
+            }
         }
 
-        PausarJuego();
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.TransitionToVictoria();
+
+        StartCoroutine(PausarConDelay(2.5f));
     }
 
     /// <summary>
@@ -55,16 +65,22 @@ public class LoseWinCondition : MonoBehaviour
     /// </summary>
     public void CargarLoseScene()
     {
-
         if (LosePanel != null)
         {
             LosePanel.SetActive(true);
             ActualizarEstadisticas(loseStatsText);
-            audioSource.clip = loseAudioClip;
-            audioSource.Play();
+
+            if (audioSource != null && loseAudioClip != null)
+            {
+                audioSource.clip = loseAudioClip;
+                audioSource.Play();
+            }
         }
 
-        PausarJuego();
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.TransitionToDerrota();
+
+        StartCoroutine(PausarConDelay(2.0f));
     }
 
     private void ActualizarEstadisticas(TextMeshProUGUI campoTexto)
@@ -80,6 +96,12 @@ public class LoseWinCondition : MonoBehaviour
                             $"Checkpoints alcanzados: {checkpointManager.CheckpointsAlcanzados}\n" +
                             $"Muertes totales: {checkpointManager.Muertes}"; 
         }
+    }
+
+    private IEnumerator PausarConDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        PausarJuego();
     }
 
     private void PausarJuego()
@@ -99,10 +121,6 @@ public class LoseWinCondition : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Botones de UI para reiniciar o volver al menú principal
-    /// </summary>
-
     public void ReintentarDesdeCheckpoint()
     {
         Time.timeScale = 1f;
@@ -110,6 +128,9 @@ public class LoseWinCondition : MonoBehaviour
         Cursor.visible = false;
 
         if (LosePanel != null) LosePanel.SetActive(false);
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetBajoElAgua(false); 
 
         if (checkpointManager != null)
         {
