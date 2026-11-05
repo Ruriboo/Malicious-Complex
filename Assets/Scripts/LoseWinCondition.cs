@@ -16,10 +16,16 @@ public class LoseWinCondition : MonoBehaviour
     [SerializeField] private TextMeshProUGUI winStatsText;
     [SerializeField] private TextMeshProUGUI loseStatsText;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip winAudioClip;
+    [SerializeField] private AudioClip loseAudioClip;
+
     private void Start()
     {
         if (WinPanel != null) WinPanel.SetActive(false);
         if (LosePanel != null) LosePanel.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
 
         if (checkpointManager == null)
         {
@@ -37,6 +43,8 @@ public class LoseWinCondition : MonoBehaviour
         {
             WinPanel.SetActive(true);
             ActualizarEstadisticas(winStatsText);
+            audioSource.clip = winAudioClip;
+            audioSource.Play();
         }
 
         PausarJuego();
@@ -52,6 +60,8 @@ public class LoseWinCondition : MonoBehaviour
         {
             LosePanel.SetActive(true);
             ActualizarEstadisticas(loseStatsText);
+            audioSource.clip = loseAudioClip;
+            audioSource.Play();
         }
 
         PausarJuego();
