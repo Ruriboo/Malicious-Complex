@@ -54342,6 +54342,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7592493044275042925, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
+    - target: {fileID: 7592493044275042925, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -8863987378000870031, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
     - target: {fileID: 7643776727464180006, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -54375,8 +54383,20 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7716942235845747710, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: sfxMixerGroup
+      value: 
+      objectReference: {fileID: -8863987378000870031, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
+    - target: {fileID: 7716942235845747710, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: velocidadMouse
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7716942235845747710, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: LandingAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
+    - target: {fileID: 7716942235845747710, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: FootstepAudioVolume
+      value: 0.165
       objectReference: {fileID: 0}
     - target: {fileID: 7716942235845747710, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: GroundLayers.m_Bits
