@@ -59427,7 +59427,7 @@ PrefabInstance:
     - target: {fileID: 7592493044275042925, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: -8863987378000870031, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
+      objectReference: {fileID: -6157369696198327121, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
     - target: {fileID: 7643776727464180006, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -59528,6 +59528,14 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 505751344}
+    - target: {fileID: 8921933756341702755, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: wallJumpForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8921933756341702755, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: wallJumpUpForce
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8921933756341702755, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: wallCheckDistance
       value: 1.5
