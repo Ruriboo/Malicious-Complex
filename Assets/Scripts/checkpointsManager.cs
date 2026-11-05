@@ -14,6 +14,9 @@ public class CheckpointManager : MonoBehaviour
 
     public static event Action<string> OnZonaCambiada;
 
+    // Se dispara al terminar RespawnPlayer (los enemigos vuelven a su posicion inicial).
+    public static event Action OnJugadorRespawn;
+
     [SerializeField] private Transform player;
     [SerializeField] private Oxigeno oxigeno;
 
@@ -232,6 +235,8 @@ public class CheckpointManager : MonoBehaviour
         if (oxigeno != null) oxigeno.rellenarOxigeno();
 
         RestaurarEstadoBotones();
+
+        OnJugadorRespawn?.Invoke();
     }
 
     private void RestaurarEstadoBotones()

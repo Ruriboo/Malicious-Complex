@@ -45,6 +45,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4485218064509305321}
   - component: {fileID: 8466263581970543807}
+  - component: {fileID: 2342868341373742962}
   m_Layer: 8
   m_Name: PlayerInteractCollider
   m_TagString: Player
@@ -90,6 +91,26 @@ CapsuleCollider:
   m_Height: 2.616722
   m_Direction: 1
   m_Center: {x: 0, y: 0.80836105, z: 0}
+--- !u!114 &2342868341373742962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784618847855521991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &4589898605806247673
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,6 +124,7 @@ GameObject:
   - component: {fileID: 6109822737811360090}
   - component: {fileID: 3300160666651801893}
   - component: {fileID: 3074092475675296199}
+  - component: {fileID: 6329061050635948867}
   m_Layer: 0
   m_Name: ColliderOxigeno
   m_TagString: Untagged
@@ -201,8 +223,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 4, y: 3, z: 4}
+  m_Center: {x: 0, y: -1.5, z: 0}
 --- !u!114 &3074092475675296199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +242,31 @@ MonoBehaviour:
   loseWinCondition: {fileID: 0}
   barraOxigeno: {fileID: 0}
   uiOxigeno: {fileID: 0}
+  snapshotNormal: {fileID: 0}
+  snapshotBajoAgua: {fileID: 0}
+  duracionBarraGolpe: 2.5
+  audioSource: {fileID: 0}
+  sfxOxigeno: {fileID: 0}
+--- !u!114 &6329061050635948867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4589898605806247673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 0
+  m_AffectedAgents: ffffffff
 --- !u!1001 &5178524079979122078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -250,31 +297,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.9638298
+      value: -0.10103736
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 25.361013
+      value: 0.5749999
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.331498
+      value: 6.7994776
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.27748796
+      value: -0.007242902
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.022260396
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9573968
+      value: 0.9999738
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.076786995
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -397,6 +444,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7592493044275042925}
+    - targetCorrespondingSourceObject: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8443748444353181275}
   m_SourcePrefab: {fileID: 100100000, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
 --- !u!4 &2733136481206835881 stripped
 Transform:
@@ -436,6 +486,8 @@ MonoBehaviour:
   wallCheckDistance: 0.7
   minJumpHeight: 1
   footCheckRadius: 0.35
+  audioSource: {fileID: 0}
+  sfxWalljump: []
 --- !u!114 &4846249160824631323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,8 +504,6 @@ MonoBehaviour:
   checkRadius: 2
   audioSource: {fileID: 7592493044275042925}
   sfxZip: {fileID: 8300000, guid: d2d7a981f0dc1b94eb5614124106e154, type: 3}
-  minPitch: 0.9
-  maxPitch: 1.05
 --- !u!82 &7592493044275042925
 AudioSource:
   m_ObjectHideFlags: 0
@@ -551,6 +601,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8443748444353181275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7716942235845747701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &9064171759693014895
 PrefabInstance:
   m_ObjectHideFlags: 0
