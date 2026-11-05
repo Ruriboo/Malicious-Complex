@@ -59165,6 +59165,54 @@ PrefabInstance:
       propertyPath: snapshotBajoAgua
       value: 
       objectReference: {fileID: -8092083396032674387, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
+    - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: gradienteOxigeno.ctime1
+      value: 32768
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: gradienteOxigeno.ctime2
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: gradienteOxigeno.key0.b
+      value: 0.26415092
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: gradienteOxigeno.key0.g
+      value: 0.028657887
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: gradienteOxigeno.key0.r
+      value: 0.062019452
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: gradienteOxigeno.key1.b
+      value: 0.8301887
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: gradienteOxigeno.key1.g
+      value: 0.27304226
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: gradienteOxigeno.key1.r
+      value: 0.26237094
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: gradienteOxigeno.key2.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: gradienteOxigeno.key2.g
+      value: 0.8345007
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: gradienteOxigeno.key2.r
+      value: 0.41037738
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074092475675296199, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
+      propertyPath: gradienteOxigeno.m_NumColorKeys
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3083346662951395075, guid: 6944fc19c0c36e2448f20cc9956c395d, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -67308,6 +67356,81 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &647644366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 647644367}
+  - component: {fileID: 647644369}
+  - component: {fileID: 647644368}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &647644367
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647644366}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1607586028}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -70.8, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &647644368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647644366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.4764151, g: 0.8013697, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 3639bcf7d1c3d0b40981c649701aea77, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &647644369
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647644366}
+  m_CullTransparentMesh: 1
 --- !u!43 &649347179
 Mesh:
   m_ObjectHideFlags: 0
@@ -101125,7 +101248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.0024919915, g: 0.0080478955, b: 0.0754717, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -113561,6 +113684,7 @@ RectTransform:
   m_Children:
   - {fileID: 1345917909}
   - {fileID: 613062387}
+  - {fileID: 647644367}
   m_Father: {fileID: 92978163}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

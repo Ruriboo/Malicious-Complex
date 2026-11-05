@@ -11,6 +11,7 @@ public class Oxigeno : MonoBehaviour
     [SerializeField] private LoseWinCondition loseWinCondition; //Referencia al script LoseWinCondition para cargar la escena de derrota
     [SerializeField] private Image barraOxigeno;
     [SerializeField] private GameObject uiOxigeno;
+    [SerializeField] private Gradient gradienteOxigeno;
     [SerializeField] private AudioMixerSnapshot snapshotNormal;
     [SerializeField] private AudioMixerSnapshot snapshotBajoAgua;
 
@@ -46,6 +47,7 @@ public class Oxigeno : MonoBehaviour
         {
             uiOxigeno.SetActive(true);
             barraOxigeno.fillAmount = PorcentajeOxigeno;
+            barraOxigeno.color = gradienteOxigeno.Evaluate(PorcentajeOxigeno);
         }
         else
         {
