@@ -134,12 +134,10 @@ public class AudioManager : MonoBehaviour
     // --- BLOQUE F: EFECTO BAJO EL AGUA (Lowpass) ---
     public void SetBajoElAgua(bool estado)
     {
-        float objetivo = estado ? 500f : 22000f;
-        
-        StopCoroutine(nameof(FadeCutoff));
-
-        StartCoroutine(FadeCutoff(musicLowpassParam, objetivo));
-        StartCoroutine(FadeCutoff(sfxLowpassParam, objetivo));
+        if (estado) 
+            snapshotBajoElAgua.TransitionTo(0.5f);
+        else 
+            snapshotNormal.TransitionTo(0.5f);
     }
 
     private IEnumerator FadeCutoff(string parametro, float objetivo)
