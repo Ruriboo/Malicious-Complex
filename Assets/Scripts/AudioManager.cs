@@ -15,7 +15,13 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixerGroup ambienteGroup;
     [SerializeField] private AudioMixerGroup vozGroup;
 
-    [Header("Parámetros Expuestos")]
+    [Header("Snapshots (Bloque B)")]
+    [SerializeField] private AudioMixerSnapshot snapshotNormal;
+    [SerializeField] private AudioMixerSnapshot snapshotBajoElAgua;
+    [SerializeField] private AudioMixerSnapshot snapshotVictoria;
+    [SerializeField] private AudioMixerSnapshot snapshotDerrota;
+
+    [Header("Parámetros Expuestos (Bloque F)")]
     [SerializeField] private string musicVolumeParam = "MusicVolume";
     [SerializeField] private string musicLowpassParam = "MusicLowpassCutoff";
     [SerializeField] private string sfxLowpassParam = "SFXLowpassCutoff";
@@ -28,6 +34,10 @@ public class AudioManager : MonoBehaviour
     private int vocesSonando;
     private Coroutine duckRoutine;
 
+    // Variables para las músicas de las escenas
+    private AudioSource menuMusicSource;
+    private AudioSource gameMusicSource;
+
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -35,12 +45,62 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        // Bloque A: Buscamos las músicas en la escena actual y las reproducimos
+        GameObject menuObj = GameObject.Find("MenuMusic");
+        if (menuObj != null)
+        {
+            menuMusicSource = menuObj.GetComponent<AudioSource>();
+            PlayMenuMusic();
+        }
+
+        GameObject gameObj = GameObject.Find("GameMusic");
+        if (gameObj != null)
+        {
+            gameMusicSource = gameObj.GetComponent<AudioSource>();
+            PlayGameMusic();
+        }
+    }
+
+    // Propiedades para acceder a los grupos desde otros scripts
     public AudioMixerGroup Music => musicGroup;
     public AudioMixerGroup SFX => sfxGroup;
     public AudioMixerGroup Ambiente => ambienteGroup;
     public AudioMixerGroup Voz => vozGroup;
 
-    // --- DUCKING (Bajar música cuando hay voz) ---
+    // --- CONTROL DE MÚSICA POR ESCENAS (Bloque A) ---
+    public void PlayMenuMusic()
+    {
+        if (gameMusicSource != null) gameMusicSource.Stop();
+        if (menuMusicSource != null && !menuMusicSource.isPlaying) menuMusicSource.Play();
+    }
+
+    public void PlayGameMusic()
+    {
+        if (menuMusicSource != null) menuMusicSource.Stop();
+        if (gameMusicSource != null && !gameMusicSource.isPlaying) gameMusicSource.Play();
+    }
+
+    // --- BLOQUE B: TRANSICIONES DE SNAPSHOTS ---
+    public void TransitionToNormal()
+    {
+        if (snapshotNormal != null) snapshotNormal.TransitionTo(0.5f);
+    }
+
+    public void TransitionToVictoria()
+    {
+        if (snapshotVictoria != null) snapshotVictoria.TransitionTo(2.0f);
+        else TransitionToNormal();
+    }
+
+    public void TransitionToDerrota()
+    {
+        if (snapshotDerrota != null) snapshotDerrota.TransitionTo(1.0f);
+        else TransitionToNormal();
+    }
+
+    // --- BLOQUE F: DUCKING (Bajar música cuando hay voz) ---
     public void EmpezarVoz()
     {
         vocesSonando++;
@@ -71,7 +131,7 @@ public class AudioManager : MonoBehaviour
         mainMixer.SetFloat(musicVolumeParam, targetDb);
     }
 
-    // --- EFECTO BAJO EL AGUA (Lowpass) ---
+    // --- BLOQUE F: EFECTO BAJO EL AGUA (Lowpass) ---
     public void SetBajoElAgua(bool estado)
     {
         float objetivo = estado ? 500f : 22000f;

@@ -7,18 +7,21 @@ public class CheckpointManager : MonoBehaviour
     public static CheckpointManager Instance { get; private set; }
 
     public static event Action<int> OnMuertesCambiadas;
-
     public static event Action<int> OnCheckpointAlcanzado;
-
     public static event Action<float> OnTiempoActualizado;
-
     public static event Action<string> OnZonaCambiada;
-
+    
     // Se dispara al terminar RespawnPlayer (los enemigos vuelven a su posicion inicial).
     public static event Action OnJugadorRespawn;
 
+    [Header("Referencias")]
     [SerializeField] private Transform player;
     [SerializeField] private Oxigeno oxigeno;
+
+    [Header("Audio Checkpoint")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip checkpointSound;
+    private float cooldownAudio = 0f;
 
     [SerializeField] private List<ZonaInundacion> zonasDelNivel = new();
 
@@ -75,6 +78,9 @@ public class CheckpointManager : MonoBehaviour
         {
             tiempoTranscurrido += Time.deltaTime;
         }
+
+        if (cooldownAudio > 0f) 
+            cooldownAudio -= Time.deltaTime;
     }
 
     // ZONAS
@@ -87,8 +93,6 @@ public class CheckpointManager : MonoBehaviour
         {
             if (zona.EsValida())
                 zonasPendientes.Enqueue(zona);
-            else
-                Debug.LogWarning($"[CheckpointManager] Zona inválida: {zona.nombreZona}");
         }
 
         if (zonasPendientes.Count > 0)
@@ -117,7 +121,6 @@ public class CheckpointManager : MonoBehaviour
         }
 
         GuardarEstadoActualBotones();
-
     }
 
     private void DetenerTodasLasAguas()
@@ -143,6 +146,8 @@ public class CheckpointManager : MonoBehaviour
 
         OnCheckpointAlcanzado?.Invoke(checkpointsAlcanzados);
 
+        ReproducirSonidoCheckpoint();
+
         RefrescarBotones();
         GuardarEstadoActualBotones();
     }
@@ -163,8 +168,19 @@ public class CheckpointManager : MonoBehaviour
         }
 
         OnCheckpointAlcanzado?.Invoke(checkpointsAlcanzados);
+
+        ReproducirSonidoCheckpoint();
+
         RefrescarBotones();
         GuardarEstadoActualBotones();
+    }
+    private void ReproducirSonidoCheckpoint()
+    {
+        if (audioSource != null && checkpointSound != null && cooldownAudio <= 0f)
+        {
+            audioSource.PlayOneShot(checkpointSound);
+            cooldownAudio = 1.0f;
+        }
     }
 
     private void RefrescarBotones()
