@@ -8,6 +8,8 @@ public class WallRun : MonoBehaviour
     [SerializeField] private Collider wallRunDetector;
     [SerializeField] private float arcHeight = 2.5f;
     [SerializeField] private float minimumSpeed = 0.5f;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip sfxWallrun;
 
     private ThirdPersonController controller;
     private CharacterController characterController;
@@ -31,6 +33,7 @@ public class WallRun : MonoBehaviour
         controller = GetComponent<ThirdPersonController>();
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        if (audioSource == null) audioSource = GetComponent<AudioSource>();
 
         animIDWallRunning = Animator.StringToHash("IsWallRunning");
 
@@ -119,6 +122,7 @@ public class WallRun : MonoBehaviour
         startHeight = transform.position.y;
 
         float side = Vector3.Dot(transform.right, wallNormal);
+        SFXWallrun();
 
         if (animator)
         {
@@ -184,6 +188,13 @@ public class WallRun : MonoBehaviour
             animator.SetBool("IsWallRunning", false);
             animator.SetBool("IsWallRunningLeft", false);
         }
-    
-}
+    }
+
+
+         private void SFXWallrun()
+    {
+        if (audioSource == null || sfxWallrun == null) return;
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.PlayOneShot(sfxWallrun);
+    }
 }
