@@ -460,80 +460,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8194580773218259202, guid: 68f98f63cc0702aa095fe138c2cab103, type: 3}
   m_PrefabInstance: {fileID: 15467766}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &18552552
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1929724823}
-    m_Modifications:
-    - target: {fileID: 49123336479625488, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 12.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 49123336479625488, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 13.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 49123336479625488, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 20.76
-      objectReference: {fileID: 0}
-    - target: {fileID: 49123336479625488, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 13.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 49123336479625488, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 49123336479625488, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 49123336479625488, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 49123336479625488, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 49123336479625488, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 49123336479625488, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 49123336479625488, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 49123336479625488, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 765902558742196419, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: m_Name
-      value: piso (16)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6982050960009519878, guid: 213371b1d978c5d429b4334413252090, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 02b96c10ffe526b52bd591fee5ff7bf4, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 213371b1d978c5d429b4334413252090, type: 3}
---- !u!4 &18552553 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 49123336479625488, guid: 213371b1d978c5d429b4334413252090, type: 3}
-  m_PrefabInstance: {fileID: 18552552}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &18734244
 Mesh:
   m_ObjectHideFlags: 0
@@ -44129,9 +44055,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6732485463247641864, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1997496151}
-    - targetCorrespondingSourceObject: {fileID: 6732485463247641864, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 18552553}
     - targetCorrespondingSourceObject: {fileID: 6732485463247641864, guid: c5b364d43edbda745b65ba7152d75d33, type: 3}
       insertIndex: -1
       addedObject: {fileID: 263770003}
