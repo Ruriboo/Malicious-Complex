@@ -48,6 +48,9 @@ namespace StarterAssets
         [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
         public float FallTimeout = 0.15f;
 
+        [Tooltip("Coyote time: segundos despues de salir de un borde en los que todavia se puede saltar")]
+        public float CoyoteTime = 0.12f;
+
         [Header("Player Grounded")]
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         public bool Grounded = true;
@@ -83,10 +86,6 @@ namespace StarterAssets
         public bool wallJumping;
         public MovementState state;
 
-        // NUEVO: Referencia al grupo del Mixer desde el Inspector
-        public UnityEngine.Audio.AudioMixerGroup sfxMixerGroup;
-        private AudioSource _audioSource;
-
         public enum MovementState
         {
             walljumping
@@ -116,6 +115,10 @@ namespace StarterAssets
         // timeout deltatime
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
+
+        // coyote time
+        private float _coyoteDelta;
+        private bool _saltoEnCurso;
 
         // animation IDs
         private int _animIDSpeed;
@@ -196,13 +199,6 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
-
-            // NUEVO: Obtenemos el AudioSource y lo asignamos al Mixer
-            _audioSource = GetComponent<AudioSource>();
-            if (_audioSource == null) _audioSource = gameObject.AddComponent<AudioSource>();
-            
-            if (sfxMixerGroup != null)
-                _audioSource.outputAudioMixerGroup = sfxMixerGroup;
         }
 
         private void Update()
@@ -436,13 +432,19 @@ namespace StarterAssets
                 if (_verticalVelocity < 0.0f)
                 {
                     _verticalVelocity = -2f;
+                    _saltoEnCurso = false; // aterrizo
                 }
+
+                // Coyote time: al salir del borde se conserva el salto un instante (si ya se podia saltar).
+                _coyoteDelta = _jumpTimeoutDelta <= 0.0f ? CoyoteTime : 0.0f;
 
                 // Jump
                 if (_input.jump && _jumpTimeoutDelta <= 0.0f)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                    _saltoEnCurso = true;
+                    _coyoteDelta = 0.0f;
 
                     // update animator if using character
                     if (_hasAnimator)
@@ -476,6 +478,20 @@ namespace StarterAssets
                     }
                 }
 
+                // Coyote time: salto permitido poco despues de caer de un borde (no tras un salto ni un wall jump).
+                if (_input.jump && _coyoteDelta > 0.0f && !_saltoEnCurso && !wallJumping)
+                {
+                    _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                    _saltoEnCurso = true;
+                    _coyoteDelta = 0.0f;
+                    if (_hasAnimator)
+                    {
+                        _animator.SetBool(_animIDJump, true);
+                        _animator.SetBool(_animIDFreeFall, false);
+                    }
+                }
+                _coyoteDelta -= Time.deltaTime;
+
                 // if we are not grounded, do not jump
                 _input.jump = false;
             }
@@ -508,6 +524,10 @@ namespace StarterAssets
                 GroundedRadius);
         }
 
+
+
+
+
         public void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight < 0.5f)
@@ -527,25 +547,22 @@ namespace StarterAssets
             {
                 int index = Random.Range(0, FootstepAudioClips.Length);
 
-                // MODIFICADO: Usamos _audioSource con variación de pitch
-                if (_audioSource != null)
-                {
-                    _audioSource.pitch = Random.Range(0.9f, 1.1f);
-                    _audioSource.PlayOneShot(FootstepAudioClips[index], FootstepAudioVolume);
-                }
+                AudioSource.PlayClipAtPoint(
+                    FootstepAudioClips[index],
+                    transform.TransformPoint(_controller.center),
+                    FootstepAudioVolume
+                );
             }
         }
+
+
+
 
         private void OnLand(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                // MODIFICADO: Usamos _audioSource
-                if (_audioSource != null)
-                {
-                    _audioSource.pitch = 1f;
-                    _audioSource.PlayOneShot(LandingAudioClip, FootstepAudioVolume);
-                }
+                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
         }
 

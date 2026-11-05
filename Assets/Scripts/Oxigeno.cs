@@ -26,12 +26,16 @@ public class Oxigeno : MonoBehaviour
 
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip sfxOxigeno;
+    [Tooltip("Particulas (burbujas) que se activan mientras el collider de oxigeno esta en el agua.")]
+    [SerializeField] private GameObject particulasAgua;
 
     void Start()
     {
         oxigenoActual = oxigenoMax;
         uiOxigeno.SetActive(false);
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
+        if (particulasAgua == null && transform.Find("ParticulasAgua") is Transform p) particulasAgua = p.gameObject;
+        if (particulasAgua != null) particulasAgua.SetActive(false);
     }
 
     void Update()
@@ -112,6 +116,7 @@ public class Oxigeno : MonoBehaviour
         enAgua = true;
         uiOxigeno.SetActive(true);
         snapshotBajoAgua.TransitionTo(0.3f);
+        if (particulasAgua != null) particulasAgua.SetActive(true);
     }
 
     public void SalirAgua()
@@ -121,6 +126,7 @@ public class Oxigeno : MonoBehaviour
         uiOxigeno.SetActive(false);
         rellenarOxigeno();
         snapshotNormal.TransitionTo(0.5f);
+        if (particulasAgua != null) particulasAgua.SetActive(false);
         if (audioSource != null && audioSource.isPlaying) audioSource.Stop();
     }
 

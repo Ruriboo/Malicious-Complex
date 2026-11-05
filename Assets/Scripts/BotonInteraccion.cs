@@ -12,6 +12,7 @@ public class BotonPuerta : ObjetoInteractuable
     private Light luzBoton;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip sfxBoton;
+    [SerializeField, Range(0f, 1f)] private float volumenBoton = 0.35f;
 
     private void Awake()
     {
@@ -92,6 +93,6 @@ public class BotonPuerta : ObjetoInteractuable
     {
         if (audioSource == null || sfxBoton == null) return;
         audioSource.pitch = Random.Range(0.9f, 1.1f);
-        audioSource.PlayOneShot(sfxBoton);
+        audioSource.PlayOneShot(sfxBoton, volumenBoton);
     }
 }

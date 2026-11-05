@@ -16,6 +16,39 @@ public class FloodWater : MonoBehaviour
 
     public bool Flood { get => flood; set => flood = value; }
 
+    // Registro de aguas y altura de la superficie (para efectos visuales: bajo agua, flotantes, niebla).
+    private static readonly System.Collections.Generic.List<FloodWater> todas = new();
+    public static System.Collections.Generic.IReadOnlyList<FloodWater> Todas => todas;
+    private Collider colliderAgua;
+
+    public float AlturaSuperficie
+    {
+        get
+        {
+            if (colliderAgua == null) colliderAgua = GetComponent<Collider>();
+            return colliderAgua != null ? colliderAgua.bounds.max.y : transform.position.y;
+        }
+    }
+
+    // Agua mas alta que esta por debajo de 'punto' en XZ (null si no hay).
+    public static FloodWater BuscarDebajo(Vector3 punto)
+    {
+        FloodWater mejor = null;
+        foreach (var agua in todas)
+        {
+            if (agua == null) continue;
+            if (agua.colliderAgua == null) agua.colliderAgua = agua.GetComponent<Collider>();
+            if (agua.colliderAgua == null) continue;
+            Bounds b = agua.colliderAgua.bounds;
+            if (punto.x < b.min.x || punto.x > b.max.x || punto.z < b.min.z || punto.z > b.max.z) continue;
+            if (mejor == null || b.max.y > mejor.AlturaSuperficie) mejor = agua;
+        }
+        return mejor;
+    }
+
+    private void OnEnable() { if (!todas.Contains(this)) todas.Add(this); }
+    private void OnDisable() => todas.Remove(this);
+
     void Start()
     {
         if (audioSource == null) audioSource = GetComponent<AudioSource>();
