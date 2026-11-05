@@ -132,8 +132,6 @@ MonoBehaviour:
   flood: 0
   audioSource: {fileID: 2827368300475365178}
   sfxUnderwater: {fileID: 8300000, guid: 93e78ba1877fc5d43b13cf2f112c6d33, type: 3}
-  minPitch: 0.9
-  maxPitch: 1.05
 --- !u!54 &2733890609763616811
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -170,7 +168,7 @@ AudioSource:
   m_GameObject: {fileID: 8713213246194453127}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -6157369696198327121, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
+  OutputAudioMixerGroup: {fileID: 9013226626530380167, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
