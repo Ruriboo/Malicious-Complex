@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!243 &-8863987378000870031
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Landsound
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: a36200ad2d4051041aeb011f23d70f4c
+  m_Children: []
+  m_Volume: fdfe000be98c7a64ba9686d99173271c
+  m_Pitch: 4f8ea1ab346bc8a4785dc38a923ccc40
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -495843525851373333}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!245 &-8092083396032674387
 AudioMixerSnapshotController:
   m_ObjectHideFlags: 0
@@ -50,7 +69,8 @@ AudioMixerGroupController:
   m_Name: SFX
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: f6b650762b21f394eaa34df11a3e9713
-  m_Children: []
+  m_Children:
+  - {fileID: -8863987378000870031}
   m_Volume: ab8fa9d654eac284881b09bf3d584a93
   m_Pitch: b33e6b179de537c49a5f1e6c227712dc
   m_Send: 00000000000000000000000000000000
@@ -197,6 +217,20 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-495843525851373333
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 42c8103e7e726d14397090f5a4ce461d
+  m_EffectName: Attenuation
+  m_MixLevel: 6710e2245f1e42d4797d4140a44c739d
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &-39193318811104350
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -254,9 +288,10 @@ AudioMixerController:
     - aa9ec42bb6d09404b86e91c9f8b8f3a8
     - 6c82bee11ac28e34591ad7754e5561be
     - edee377646436a94bb8547e4dc042eee
+    - a36200ad2d4051041aeb011f23d70f4c
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: 6297472039971650572}
+  m_TargetSnapshot: {fileID: -8092083396032674387}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
