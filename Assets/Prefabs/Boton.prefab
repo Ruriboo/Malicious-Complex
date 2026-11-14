@@ -130,8 +130,7 @@ MonoBehaviour:
   objetoObjetivo: {fileID: 0}
   audioSource: {fileID: 4034933430755611461}
   sfxBoton: {fileID: 8300000, guid: 74f668a31cb26a74fa5acb868bbee87f, type: 3}
-  minPitch: 0.9
-  maxPitch: 1.05
+  volumenBoton: 0.35
 --- !u!82 &4034933430755611461
 AudioSource:
   m_ObjectHideFlags: 0
@@ -141,7 +140,7 @@ AudioSource:
   m_GameObject: {fileID: 757957777199415549}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -6157369696198327121, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
+  OutputAudioMixerGroup: {fileID: -2362314564877799747, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
