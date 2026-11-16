@@ -77058,7 +77058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7701261125700181399, guid: 724c4b74acbbe593089bb09cbeac5542, type: 3}
       propertyPath: m_Volume
-      value: 0.125
+      value: 0.27
       objectReference: {fileID: 0}
     - target: {fileID: 7701261125700181399, guid: 724c4b74acbbe593089bb09cbeac5542, type: 3}
       propertyPath: m_Resource
@@ -90072,7 +90072,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5836517598926569242, guid: 82adf7e05e10aa4c79d4306a6e701207, type: 3}
       propertyPath: m_Volume
-      value: 0.139
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836517598926569242, guid: 82adf7e05e10aa4c79d4306a6e701207, type: 3}
+      propertyPath: MaxDistance
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5836517598926569242, guid: 82adf7e05e10aa4c79d4306a6e701207, type: 3}
+      propertyPath: rolloffMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6257262093086365249, guid: 82adf7e05e10aa4c79d4306a6e701207, type: 3}
       propertyPath: m_LocalPosition.x
@@ -100282,7 +100290,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5836517598926569242, guid: 82adf7e05e10aa4c79d4306a6e701207, type: 3}
       propertyPath: m_Volume
-      value: 0.065
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 5836517598926569242, guid: 82adf7e05e10aa4c79d4306a6e701207, type: 3}
       propertyPath: MaxDistance
@@ -126076,7 +126084,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7701261125700181399, guid: 724c4b74acbbe593089bb09cbeac5542, type: 3}
       propertyPath: m_Volume
-      value: 0.202
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 7701261125700181399, guid: 724c4b74acbbe593089bb09cbeac5542, type: 3}
       propertyPath: m_Resource
@@ -130195,7 +130203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7701261125700181399, guid: 724c4b74acbbe593089bb09cbeac5542, type: 3}
       propertyPath: m_Volume
-      value: 0.143
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 7701261125700181399, guid: 724c4b74acbbe593089bb09cbeac5542, type: 3}
       propertyPath: m_Resource
@@ -138719,6 +138727,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2887676843086075376, guid: 22d00de96d4889e448e4d6cc9a5815bb, type: 3}
+      propertyPath: m_Pitch
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887676843086075376, guid: 22d00de96d4889e448e4d6cc9a5815bb, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 0d118874298afaa488c5f18791542347, type: 3}
+    - target: {fileID: 2887676843086075376, guid: 22d00de96d4889e448e4d6cc9a5815bb, type: 3}
       propertyPath: MaxDistance
       value: 5
       objectReference: {fileID: 0}
@@ -139038,6 +139054,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7575878027970392475, guid: 7afbd3acbcc876840a50c81adb56964c, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7575878027970392475, guid: 7afbd3acbcc876840a50c81adb56964c, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 9013226626530380167, guid: 41ff5131b16bcf743be3f9391ef8c715, type: 2}
@@ -139226,7 +139246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5488507937331415992, guid: f4a48c010f78f504ab6002fbb1156d25, type: 3}
       propertyPath: m_Volume
-      value: 0.803
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8332666849162799814, guid: f4a48c010f78f504ab6002fbb1156d25, type: 3}
       propertyPath: m_LocalPosition.x
@@ -139281,6 +139301,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1538275475222632486, guid: be978ef45e1848c42a6864b13d882ad6, type: 3}
+      propertyPath: m_Pitch
+      value: 0.71
+      objectReference: {fileID: 0}
     - target: {fileID: 7302510953656455590, guid: be978ef45e1848c42a6864b13d882ad6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.606
