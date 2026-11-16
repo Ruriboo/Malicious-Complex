@@ -5,7 +5,7 @@ public class CambioDeAmbiente : MonoBehaviour
 {
     [SerializeField] private AudioSource ambienteActual;
     [SerializeField] private AudioSource ambienteNuevo;
-    [SerializeField] private float volumenNuevo = 0.3f;
+    [SerializeField] private float volumenNuevo = 0.7f;
     [SerializeField] private float duracion = 3f;
 
     private bool cambioAmbiente = false;

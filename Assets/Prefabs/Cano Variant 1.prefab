@@ -610,6 +610,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cano Variant 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6013564283228209332, guid: 5ccb7d11d396a8b4384125e57fbae9e7, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: febe7db170c08bf4fa71fa4749fb3854, type: 3}
     - target: {fileID: 7140048404186932665, guid: 5ccb7d11d396a8b4384125e57fbae9e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.01
