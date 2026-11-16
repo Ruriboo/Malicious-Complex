@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Audio;
 
 public class LoseWinCondition : MonoBehaviour
 {
@@ -20,6 +21,11 @@ public class LoseWinCondition : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip winAudioClip;
     [SerializeField] private AudioClip loseAudioClip;
+
+    [Header("Música adaptativa (snapshots del mixer)")]
+    [SerializeField] private AudioMixerSnapshot snapshotNormal;
+    [SerializeField] private AudioMixerSnapshot snapshotVictoria;
+    [SerializeField] private AudioMixerSnapshot snapshotDerrota;
 
     private void Start()
     {
@@ -47,6 +53,9 @@ public class LoseWinCondition : MonoBehaviour
             audioSource.Play();
         }
 
+        // Estado de música "Victoria": la música sube en 2 segundos
+        if (snapshotVictoria != null) snapshotVictoria.TransitionTo(2f);
+
         PausarJuego();
     }
 
@@ -63,6 +72,9 @@ public class LoseWinCondition : MonoBehaviour
             audioSource.clip = loseAudioClip;
             audioSource.Play();
         }
+
+        // Estado de música "Derrota": la música baja en 1 segundo
+        if (snapshotDerrota != null) snapshotDerrota.TransitionTo(1f);
 
         PausarJuego();
     }
@@ -110,6 +122,7 @@ public class LoseWinCondition : MonoBehaviour
         Cursor.visible = false;
 
         if (LosePanel != null) LosePanel.SetActive(false);
+        VolverAMusicaNormal();
 
         if (checkpointManager != null)
         {
@@ -120,13 +133,21 @@ public class LoseWinCondition : MonoBehaviour
     public void ReiniciarNivelCompleto()
     {
         Time.timeScale = 1f;
+        VolverAMusicaNormal();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void IrAlMenuPrincipal()
     {
         Time.timeScale = 1f;
+        VolverAMusicaNormal();
         SceneManager.LoadScene("MainMenu");
+    }
+
+    // El mixer conserva su estado al cambiar de escena, por eso hay que volver a Normal
+    private void VolverAMusicaNormal()
+    {
+        if (snapshotNormal != null) snapshotNormal.TransitionTo(0.5f);
     }
 
     /// <summary>

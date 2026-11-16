@@ -82,3 +82,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 et --hard codigo_del_commit_anterior
+
+# Archivos personales que no van al repo
+/Respaldo_audio_*/
+/Entrega_Parcial2/
